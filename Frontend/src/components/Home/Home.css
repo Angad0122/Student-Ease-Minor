@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    height: 100vh; /* Take up the full height of the viewport */
+  }
+  
+  .left-pane {
+    width: 50%; /* Take up half the width of the container */
+    background-color: rgb(255, 255, 255); /* Just for visualization */
+  }
+  
+  .right-pane {
+    width: 50%; /* Take up half the width of the container */
+    background-color: rgb(255, 255, 255); /* Just for visualization */
+  }
+
