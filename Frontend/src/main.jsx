@@ -2,12 +2,13 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import { BrowserRouter, Route, RouterProvider, Routes, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
-import Login from './components/Loginorsignup/Login'
-import Signup from './components/Loginorsignup/Signup'
-import Home from './components/Home/Home'
-import Aboutus from './components/Aboutus/Aboutus'
-import Contact from './components/Contact/Contact'
-import Error from './components/404/Error'
+import Login from './Pages/Loginorsignup/Login'
+import Signup from './Pages/Loginorsignup/Signup'
+import Home from './Pages/Home/Home'
+import Aboutus from './Pages/Aboutus/Aboutus'
+import Contact from './Pages/Contact/Contact'
+import Error from './Pages/404/Error'
+import Onsearchcard from './components/Onsearchcard/Onsearchcard'
 
 
 
@@ -36,6 +37,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path='/home' element={<Home />} />
         <Route path='/about' element={<Aboutus />} />
         <Route path='/contact' element={<Contact />} />
+        <Route path='/onsearch' element={<Onsearchcard />} />
         <Route path='*' element={<Error />} />
       </Routes>
     </BrowserRouter>
