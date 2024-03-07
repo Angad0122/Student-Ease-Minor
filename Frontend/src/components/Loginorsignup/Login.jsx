@@ -1,6 +1,5 @@
 import React, {useState,useEffect} from "react";
-import { Link } from "react-router-dom";
-import { NavLink } from "react-router-dom";
+import {NavLink } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 export default function Login() {
@@ -12,7 +11,7 @@ export default function Login() {
         e.preventDefault();
         console.log("hyy");
         localStorage.setItem('token',true);
-        //navigate("/");
+        navigate("/");
         
         try{
             const response = await axios.post("http://localhost:8000/auth/login",{email,password});
@@ -50,7 +49,7 @@ export default function Login() {
                         <br />
                         <p>OR</p>
                         <br />
-                        <Link to={"/signup"} className="">Signup</Link>
+                        <NavLink to={"/signup"}>Signup</NavLink>
                     </form>
                 </div>
             </div>
