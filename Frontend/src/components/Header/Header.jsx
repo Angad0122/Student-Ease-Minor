@@ -11,19 +11,19 @@ export default function Header() {
                             <img src="/Studenteaseheaderlogo.png" alt="" />
                         </div>
                         <div>
-                            <h1 className="text-white"><b>STUDENT EASE</b></h1>
+                            <h1 className="text-yellow-400"><b><i>STUDENT EASE</i></b></h1>
                         </div>
                     </div>
                     <div className="flex items-center lg:order-2">
                         <Link
                             to="#"
-                            className="text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
+                            className="text-white bg-yellow-400 hover:bg-yellow-400 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
                         >
                             Account
                         </Link>
                         <Link
                             to="#"
-                            className="text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
+                            className="text-white bg-yellow-400 hover:bg-yellow-400 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
                         >
                             Cart
                         </Link>
@@ -37,7 +37,7 @@ export default function Header() {
                                 <NavLink
                                     to={"/home"}
                                     className={() =>
-                                        `bg-black-500 hover:bg-orange-500 text-white font-bold py-2 px-2 rounded`
+                                        `bg-black-500 hover:bg-yellow-400 text-white font-bold py-2 px-2 rounded`
                                     }
                                 >
                                     Home
@@ -47,7 +47,7 @@ export default function Header() {
                                 <NavLink
                                     to={"/about"}
                                     className={() =>
-                                        `bg-black-500 hover:bg-orange-500 text-white font-bold py-2 px-2 rounded`
+                                        `bg-black-500 hover:bg-yellow-400 text-white font-bold py-2 px-2 rounded`
                                     }
                                 >
                                     About us
@@ -57,7 +57,7 @@ export default function Header() {
                                 <NavLink
                                     to={"/contact"}
                                     className={() =>
-                                        `bg-black-500 hover:bg-orange-500 text-white font-bold py-2 px-2 rounded`
+                                        `bg-black-500 hover:bg-yellow-400 text-white font-bold py-2 px-2 rounded`
                                     }
                                 >
                                     Contact us
@@ -65,7 +65,7 @@ export default function Header() {
                             </li>
                             <form class="d-flex" role="search">
                                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                                <button class="text-white border-orange-500 hover:bg-orange-500" type="submit">Search</button>
+                                <button class="text-white border-yellow-400 hover:bg-yellow-400" type="submit">Search</button>
                             </form>
                         </ul>
                     </div>

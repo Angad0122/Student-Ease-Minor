@@ -9,6 +9,7 @@ import Aboutus from './Pages/Aboutus/Aboutus'
 import Contact from './Pages/Contact/Contact'
 import Error from './Pages/404/Error'
 import Onsearchcard from './components/Onsearchcard/Onsearchcard'
+import Adminpanel from './Pages/Adminpanel/Adminpanel.jsx'
 
 
 
@@ -32,6 +33,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <Routes >
         <Route path='/' element={<Home />} />
+        <Route path='/admin' element={<Adminpanel />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/home' element={<Home />} />
