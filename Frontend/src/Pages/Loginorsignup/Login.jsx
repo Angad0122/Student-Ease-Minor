@@ -2,32 +2,43 @@ import React, {useState,useEffect} from "react";
 import {NavLink , Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Home from "../Home/Home";
+
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+
+
 export default function Login() {
     const navigate = useNavigate()
 
     const [email, setEmail] = React.useState('')
     const [password , setPassword] = React.useState('')
+    const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
+
     async function submit(e){
         e.preventDefault();
-        console.log("hyy");
         localStorage.setItem('token',true);
-        navigate("/");
+        // navigate("/");
         
         try{
             const response = await axios.post("http://localhost:8000/auth/login",{email,password});
             console.log(response);
+            setIsLoggedIn(true); // Set isLoggedIn state to true upon successful login
         }
         catch{
             console.log(e);
-
+            alert("Email is not signed up or password is wrong")
         }
     } 
+    if (isLoggedIn) {
+        return <Home />;
+    }
 
 
 
 
 
+    
     return (
         <>
             <div className="container p-5px">

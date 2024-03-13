@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
-import "./Home.css";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import { useNavigate } from "react-router-dom";
+
+import "./Home.css";
+
+
 
 export default function Home() {
   const navigate = useNavigate();
@@ -16,6 +19,17 @@ export default function Home() {
     }
 
   }, [])
+
+
+
+
+
+
+
+
+
+
+  
   return (
     <>
       <Header />

@@ -1,7 +1,8 @@
 import React from 'react'
-import { NavLink } from "react-router-dom";
-import '/src/Pages/Loginorsignup/Signup.css'
+import { NavLink  } from "react-router-dom";
 import axios from 'axios';
+
+import '/src/Pages/Loginorsignup/Signup.css'
 
 
 export default function Signup() {
@@ -46,7 +47,7 @@ export default function Signup() {
       const response = await axios.post("http://localhost:8000/signup", { username, email, phonenumber, password });
       console.log(response);
       setError('');
-      alert("signup success")
+      alert("Signup success now you can login")
     }
     catch (e) {
       console.log(e)
@@ -57,26 +58,10 @@ export default function Signup() {
     }
   }
 
-  // async function submit(e) {
-  //   e.preventDefault()
-  //   try {
-  //     const response = await axios.post("http://localhost:8000/auth/signup", {email, password})
-  //      console.log(response);
-  //         // res => {
-  //         // if (res.data == "exist") {
-  //         //   alert("User already signed in ")
-  //         // }
-  //         // else if (res.data == "notexist") {
-  //         //   history("/home")
-  //         // }
 
-  //   }
-  //   catch {
-  //     console.log(e);
 
-  //   }
-  // }
 
+  
 
   return (
     <>

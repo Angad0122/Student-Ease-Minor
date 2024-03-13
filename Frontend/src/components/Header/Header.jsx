@@ -7,6 +7,10 @@ export default function Header() {
     function search(e) {
         e.preventDefault()
     }
+
+
+
+    
     return (
         <header className="bg-black z-50 top-0">
             <nav className="bg-gray border-gray-200 px-4 lg:px-6 py-2.5">

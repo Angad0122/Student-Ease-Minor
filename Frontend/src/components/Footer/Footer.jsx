@@ -1,6 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 export default function Footer() {
+
+
+
+
+
+
+
+
+    
     return (
         <footer className="bg-black text-white border-y">
             <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">

@@ -38,9 +38,27 @@ app.post("/signup", async (req, res) => {
 
 
 
-app.post("/auth/login",(req,res)=>{
-    res.status(200).json({message:"Login Successfull"});
-})
+app.post("/auth/login", async (req, res) => {
+    const { email, password } = req.body;
+
+    // Find the user by email or username
+    const user = await User_model.findOne({ $or: [{ email }, { username: email }] });
+
+    if (!user) {
+        // If user does not exist, return an error response
+        return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Check if the provided password matches the password stored in the database
+    if (password !== user.password) {
+        // If passwords do not match, return an error response
+        return res.status(401).json({ error: 'Incorrect password' });
+    }
+
+    // If email and password match, consider it a successful login
+    res.status(200).json({ message: 'Login successful' });
+});
+
 
 
 
