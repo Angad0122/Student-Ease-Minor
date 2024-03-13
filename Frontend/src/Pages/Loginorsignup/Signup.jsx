@@ -9,17 +9,50 @@ export default function Signup() {
   const [email, setEmail] = React.useState('')
   const [phonenumber, setPhoneNumber] = React.useState('')
   const [password, setPassword] = React.useState('');
+  const [error,setError]=React.useState(false)
 
   async function submit(e) {
     e.preventDefault();
+
+
+
+    // Basic form validation
+    if (!username || !email || !phonenumber || !password) {
+      setError('All fields are required');
+      return;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError('Invalid email format');
+      return;
+    }
+
+    // Phone number validation
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(phonenumber)) {
+      setError('Invalid phone number');
+      return;
+    }
+
+    // Password validation (you can add more complex rules)
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters long');
+      return;
+    }
     
     try {
       const response = await axios.post("http://localhost:8000/signup", { username, email, phonenumber, password });
       console.log(response);
-     
+      setError('');
+      alert("signup success")
     }
-    catch {
-      console.log(e);
+    catch (e) {
+      console.log(e)
+      console.log(error);
+      setError('Failed to sign up');
+      alert("failed to signup username or email already exist")
 
     }
   }
