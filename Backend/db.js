@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 const connection = ()=>{
     const MONGO_URI = process.env.MONGO_URI;
@@ -10,4 +11,4 @@ const connection = ()=>{
     })
 }
 
-module.exports = connection;
+module.exports = connection

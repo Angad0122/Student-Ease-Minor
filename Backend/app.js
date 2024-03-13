@@ -15,17 +15,21 @@ app.use(cors());
 
 connection();
 
+app.post("/signup", async (req, res) => {
+    try {
+        const user = await User_model.create(req.body);
+        console.log(user);
+        res.json(user);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to create user' });
+    }
+});
 
 
 
-
-
-
-app.post("/signup",(req,res)=>{
-    User_model.create(req.body)
-    console.log(req.body)
-    .then(user => res.json(user))
-    .catch(err=>res.json(err))
+app.post("/auth/login",(req,res)=>{
+    res.status(200).json({message:"Login Successfull"});
 })
 
 
