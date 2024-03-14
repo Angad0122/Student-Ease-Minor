@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
+import "./Contact.css";
+
 
 export default function ContactUs() {
     const [user, setUser] = useState("");
@@ -24,8 +26,8 @@ export default function ContactUs() {
             <Header />
             <div className="">
             {submitted ? (
-                <div id="divonsubmit" className="m-10 text-center">
-                    <h2>Thank you! We appreciate your feedback!</h2>
+                <div id="divonsubmit" className=" text-center">
+                    <h2 className="p-5 thankyou bg-green-600">Thank you! We appreciate your feedback!</h2>
                 </div>
             ) : (
                 <div id="div1" className="m-10">
