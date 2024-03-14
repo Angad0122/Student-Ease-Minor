@@ -10,8 +10,8 @@ export default function Aboutus() {
         //how to set background image for text?
         <>
             <Header />
-            <div className="">
-                <p className="p-10 text-2xl bgimagefortext py-100%">
+            <div className="bgimagefortext">
+                <p className="p-10 text-2xl text-black py-100%">
                     <h1>This is About us page</h1>
                     <br />
                     Welcome to Studentease! We are thrilled to have you here.

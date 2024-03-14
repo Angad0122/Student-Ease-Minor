@@ -10,65 +10,67 @@ import "./Home.css";
 export default function Home() {
   const navigate = useNavigate();
 
-
   useEffect(() => {
-
     const authenticate = localStorage.getItem('token');
     if (!authenticate) {
       navigate("/login");
     }
-
-  }, [])
-
+  }, []);
 
 
+  //how to set all elements of a div in center?
 
-
-
-
-
-
-
-  
   return (
     <>
       <Header />
-      <div id="carouselExample" class="carousel slide">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="/slider1.jpg" class="d-block w-100" alt="..." />
+      <div className="carousel-container position-relative">
+        <div id="carouselExample" className="carousel slide">
+          <div className="carousel-inner">
+            <div className="carousel-item active">
+              <img src="/slider1.jpg" className="d-block w-100" alt="..." />
+            </div>
+            <div className="carousel-item">
+              <img src="/slider2.jpg" className="d-block w-100" alt="..." />
+            </div>
+            <div className="carousel-item">
+              <img src="/slider3.jpg" className="d-block w-100" alt="..." />
+            </div>
           </div>
-          <div class="carousel-item">
-            <img src="/slider2.jpg" class="d-block w-100" alt="..." />
-          </div>
-          <div class="carousel-item">
-            <img src="/slider3.jpg" class="d-block w-100" alt="..." />
+          <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span className="visually-hidden">Previous</span>
+          </button>
+          <button className="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span className="carousel-control-next-icon" aria-hidden="true"></span>
+            <span className="visually-hidden">Next</span>
+          </button>
+        </div>
+        <div className="carousel-text-overlay">
+          <div className="text-content">
+            <h2>Welcome to Student Ease!</h2>
+            <br />
+            <p> Your Destination for Books and Uniforms!</p>
           </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
+      </div>
+      
+      <div className="container">
+        <div id="thebookscontent" className="left-pane">
+          <div>
+            <br />
+            <h2>Discover a World of Knowledge:</h2>
+            <br />
+            <p className="text-2xl">Embark on a literary adventure with our vast collection of books. Whether you're searching for captivating fiction, insightful non-fiction, or educational resources, we have something for every reader. From bestsellers to hidden gems, our curated selection ensures that you'll find the perfect book to ignite your imagination and expand your horizons.</p>
+          </div>
+        </div>
+        <div id="booksimage" className="right-pane">
+          <img src="/public/book.jpg" alt="" />
+          <button id="booksbutton" className="viewbuttons">View All Books</button>
+        </div>
       </div>
 
-      <div className=" left-pane">
-        <div className="left">
-          <h1 className="m-10 text-4xl "><b>Hello Students</b></h1>
-          <p className="m-10 text-2xl">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat numquam repellat optio perferendis dicta ipsa exercitationem obcaecati quibusdam excepturi commodi explicabo ducimus, odit recusandae natus ex eveniet voluptas magnam, reiciendis dolor deleniti. Ea incidunt, iure nobis sit adipisci blanditiis! Delectus.</p>
-        </div>
-      </div>
-      <div className=" right-pane ">
-        <div className="right flex-end">
-          <h1 className="m-10 text-4xl "><b>Hello Students</b></h1>
-          <p className="m-10 text-2xl">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat numquam repellat optio perferendis dicta ipsa exercitationem obcaecati quibusdam excepturi commodi explicabo ducimus, odit recusandae natus ex eveniet voluptas magnam, reiciendis dolor deleniti. Ea incidunt, iure nobis sit adipisci blanditiis! Delectus.</p>
-        </div>
-      </div>
+
       <Footer />
     </>
   )
 }
-//how to place a div in the right half of the window css?

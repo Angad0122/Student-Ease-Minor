@@ -1,5 +1,6 @@
 .bgimagefortext {
     background-image: url("/public/slider1.jpg");
+    background-attachment: fixed;
     background-size: cover;
     height: 100%;
     width: 100%;
