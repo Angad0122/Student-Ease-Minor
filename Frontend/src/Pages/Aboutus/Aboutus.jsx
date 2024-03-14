@@ -10,9 +10,39 @@ export default function Aboutus() {
         //how to set background image for text?
         <>
             <Header />
-            <div className="bgimagefortext">
-                <p className="p-10 text-2xl text-black py-100%">
-                    <h1>This is About us page</h1>
+            <div className="carousel-container position-relative">
+        <div id="carouselExample" className="carousel slide">
+          <div className="carousel-inner">
+            <div className="carousel-item active">
+              <img src="/slider1.jpg" className="d-block w-100" alt="..." />
+            </div>
+            <div className="carousel-item">
+              <img src="/slider2.jpg" className="d-block w-100" alt="..." />
+            </div>
+            <div className="carousel-item">
+              <img src="/slider3.jpg" className="d-block w-100" alt="..." />
+            </div>
+          </div>
+          <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span className="visually-hidden">Previous</span>
+          </button>
+          <button className="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span className="carousel-control-next-icon" aria-hidden="true"></span>
+            <span className="visually-hidden">Next</span>
+          </button>
+        </div>
+        <div className="carousel-text-overlay">
+          <div className="text-content">
+            <h2>Welcome to Student Ease!</h2>
+            <br />
+            <p> Your Destination for Books and Uniforms!</p>
+          </div>
+        </div>
+      </div>
+            <div className="">
+                <p className="p-20  text-xl text-black py-100%">
+                    <h1 className="text-center">About us</h1>
                     <br />
                     Welcome to Studentease! We are thrilled to have you here.
                     <br /><br />

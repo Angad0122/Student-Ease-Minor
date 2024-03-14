@@ -54,6 +54,26 @@ export default function Home() {
         </div>
       </div>
       
+
+
+      <div className="p-20">
+
+
+      <div className="container">
+        <div id="thebookscontent" className="left-pane">
+          <div>
+            <br />
+            <h2>Discover a World of Knowledge:</h2>
+            <br />
+            <p className="text-2xl">Embark on a literary adventure with our vast collection of books. Whether you're searching for captivating fiction, insightful non-fiction, or educational resources, we have something for every reader. From bestsellers to hidden gems, our curated selection ensures that you'll find the perfect book to ignite your imagination and expand your horizons.</p>
+          </div>
+        </div>
+        <div id="booksimage" className="right-pane">
+          <img src="/public/uniforms.jpg" alt="" />
+          <button id="booksbutton" className="viewbuttons">View All Uniforms</button>
+        </div>
+      </div>
+
       <div className="container">
         <div id="thebookscontent" className="left-pane">
           <div>
@@ -70,6 +90,10 @@ export default function Home() {
       </div>
 
 
+      </div>
+
+
+      
       <Footer />
     </>
   )
