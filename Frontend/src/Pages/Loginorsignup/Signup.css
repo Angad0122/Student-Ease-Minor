@@ -1,6 +1,38 @@
-/* .backgroundimageis {
-    background-image: url('./public/registration.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100vh;
-  } */
+  #formbgofsignup {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    padding: 10;
+    background: #ffe600;
+    
+}
+
+
+#smalldivforsignup {
+    margin-top:5%;
+    margin-bottom: 5%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    border: 3px solid black; 
+    padding: 20px; 
+}
+
+
+#login{
+background: #1900ff;
+padding: 7px;
+padding-right: 10px;
+padding-left: 10px;
+border-radius: 5px;
+}
+#signupsubmit{
+background: #1900ff;
+padding: 7px;
+padding-right: 10px;
+padding-left: 10px;
+border-radius: 5px;
+}

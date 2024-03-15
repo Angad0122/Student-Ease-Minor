@@ -17,7 +17,9 @@ export default function Home() {
     }
   }, []);
 
-
+  function navigateto() {
+    navigate("/onsearch")
+  }
   //how to set all elements of a div in center?
 
   return (
@@ -53,47 +55,48 @@ export default function Home() {
           </div>
         </div>
       </div>
-      
+
 
 
       <div className="p-20">
 
 
-      <div className="container">
-        <div id="thebookscontent" className="left-pane">
-          <div>
-            <br />
-            <h2>Discover a World of Knowledge:</h2>
-            <br />
-            <p className="text-2xl">Embark on a literary adventure with our vast collection of books. Whether you're searching for captivating fiction, insightful non-fiction, or educational resources, we have something for every reader. From bestsellers to hidden gems, our curated selection ensures that you'll find the perfect book to ignite your imagination and expand your horizons.</p>
+        <div className="container">
+          <div id="thebookscontent" className="left-pane">
+            <div className="homeleftcontent">
+              <br />
+              <h2>Elevate Your Professionalism:</h2>
+              <br />
+              <p className="text-2xl">
+                Dress for success with our premium-quality uniforms. We understand the importance of professionalism in every aspect of life, which is why we offer a diverse range of uniforms for students, professionals, and organizations. From school uniforms that foster a sense of community to professional attire that commands respect, our collection combines style, comfort, and durability to help you look and feel your best.</p>
+            </div>
+          </div>
+          <div id="booksimage" className="right-pane">
+            <img src="/public/uniforms.jpg" alt="" />
+            <button onClick={navigateto} id="booksbutton" className="viewbuttons">View All Uniforms</button>
           </div>
         </div>
-        <div id="booksimage" className="right-pane">
-          <img src="/public/uniforms.jpg" alt="" />
-          <button id="booksbutton" className="viewbuttons">View All Uniforms</button>
-        </div>
-      </div>
 
-      <div className="container">
-        <div id="thebookscontent" className="left-pane">
-          <div>
-            <br />
-            <h2>Discover a World of Knowledge:</h2>
-            <br />
-            <p className="text-2xl">Embark on a literary adventure with our vast collection of books. Whether you're searching for captivating fiction, insightful non-fiction, or educational resources, we have something for every reader. From bestsellers to hidden gems, our curated selection ensures that you'll find the perfect book to ignite your imagination and expand your horizons.</p>
+        <div className="container">
+          <div id="thebookscontent" className="left-pane">
+            <div className="homeleftcontent">
+              <br />
+              <h2>Discover a World of Knowledge:</h2>
+              <br />
+              <p className="text-2xl">Embark on a literary adventure with our vast collection of books. Whether you're searching for captivating fiction, insightful non-fiction, or educational resources, we have something for every reader. From bestsellers to hidden gems, our curated selection ensures that you'll find the perfect book to ignite your imagination and expand your horizons.</p>
+            </div>
+          </div>
+          <div id="booksimage" className="right-pane">
+            <img src="/public/book.jpg" alt="" />
+            <button onClick={navigateto} id="booksbutton" className="viewbuttons">View All Books</button>
           </div>
         </div>
-        <div id="booksimage" className="right-pane">
-          <img src="/public/book.jpg" alt="" />
-          <button id="booksbutton" className="viewbuttons">View All Books</button>
-        </div>
-      </div>
 
 
       </div>
 
 
-      
+
       <Footer />
     </>
   )

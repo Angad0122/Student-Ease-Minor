@@ -6,6 +6,16 @@
     border-radius: 20px;
 }
 
-
 #div1{
+    margin-left: 20%;
+    margin-right: 20%;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+}
+#contactdiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
 }

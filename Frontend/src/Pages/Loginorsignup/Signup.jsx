@@ -1,20 +1,20 @@
 import React from 'react'
-import { NavLink  } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 import '/src/Pages/Loginorsignup/Signup.css'
 
 
 export default function Signup() {
+  const navigate = useNavigate()
   const [username, setUserName] = React.useState('')
   const [email, setEmail] = React.useState('')
   const [phonenumber, setPhoneNumber] = React.useState('')
   const [password, setPassword] = React.useState('');
-  const [error,setError]=React.useState(false)
+  const [error, setError] = React.useState(false)
 
   async function submit(e) {
     e.preventDefault();
-
 
 
     // Basic form validation
@@ -42,7 +42,7 @@ export default function Signup() {
       setError('Password must be at least 6 characters long');
       return;
     }
-    
+
     try {
       const response = await axios.post("http://localhost:8000/signup", { username, email, phonenumber, password });
       console.log(response);
@@ -57,41 +57,43 @@ export default function Signup() {
 
     }
   }
+  function navigateto() {
+    navigate("/login")
+  }
 
 
 
 
-  
 
   return (
     <>
-      <div className="container p-5px backgroundimageis ">
-        <div className=''>
+      <div id='formbgofsignup' className="">
+        <div id='smalldivforsignup' className='p-10 bg-white'>
           <form>
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">Username</label>
-              <input onChange={(e) => { setUserName(e.target.value) }} type="username" class="form-control" />
+              <input onChange={(e) => { setUserName(e.target.value) }} type="username" class="form-control"
+              placeholder='User1010' />
             </div>
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Email address</label>
-              <input onChange={(e) => { setEmail(e.target.value) }} type="email" class="form-control" aria-describedby="emailHelp" />
-              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+              <input onChange={(e) => { setEmail(e.target.value) }} type="email" class="form-control" aria-describedby="emailHelp" placeholder='example123@gmail.com' />
+              <div id="emailHelp" class="form-text" >
+                We'll never share your email with anyone else.</div>
             </div>
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">Phone Number</label>
-              <input onChange={(e) => { setPhoneNumber(e.target.value) }} type="phonenumber" class="form-control" />
+              <input onChange={(e) => { setPhoneNumber(e.target.value) }} type="phonenumber" class="form-control"
+                placeholder='' />
             </div>
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">Password</label>
-              <input onChange={(e) => { setPassword(e.target.value) }} type="password" class="form-control" />
+              <input onChange={(e) => { setPassword(e.target.value) }} type="password" class="form-control" placeholder='Minimum length should be 8' />
             </div>
           </form>
-          <br />
-          <button onClick={submit} type="submit" class="btn text-black border-blue btn-primary">Submit</button>
-          <br />
-          <br />
+          <button onClick={submit} id="signupsubmit" type="submit" className="text-white">Submit</button>          <br />
           <p>OR</p>
-          <NavLink to={"/login"}>Login</NavLink>
+          <button id="signup" onClick={navigateto} className="text-white">Login</button>
         </div>
       </div>
     </>
