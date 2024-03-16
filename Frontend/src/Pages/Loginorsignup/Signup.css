@@ -1,11 +1,14 @@
-  #formbgofsignup {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    align-items: center;
-    padding: 10;
-    background: #ffe600;
-    
+.close-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: #000;
+}
+
+#divofcrossinsidesignupdiv{
+  margin-left: 250px;
+
 }
 
 
