@@ -45,6 +45,7 @@ export default function Signup({ closeSignupWindow,toggleSignupWindow, toggleLog
             console.log(response);
             setError('');
             alert("Signup success now you can login");
+            closeSignupWindow()
         } catch (e) {
             console.log(e);
             console.log(error);
