@@ -1,15 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState ,useContext} from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '/src/Pages/Loginorsignup/Signup.css';
 
-export default function Signup({ closeSignupWindow,toggleSignupWindow, toggleLoginWindow }) {
+import { OverlayContext } from '../../contexts/OverlayContext';
+
+
+
+
+
+export default function Signup() {
     const navigate = useNavigate();
     const [username, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [phonenumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(false);
+    const { showLoginOverlay,setShowLoginOverlay, showSignupOverlay,setShowSignupOverlay,toggleLoginOverlay,toggleSignupOverlay,closeLoginOverlay,closeSignupOverlay } = useContext(OverlayContext);
+
 
     async function submit(e) {
         e.preventDefault();
@@ -45,7 +53,7 @@ export default function Signup({ closeSignupWindow,toggleSignupWindow, toggleLog
             console.log(response);
             setError('');
             alert("Signup success now you can login");
-            closeSignupWindow()
+            closeSignupOverlay()
         } catch (e) {
             console.log(e);
             console.log(error);
@@ -55,8 +63,8 @@ export default function Signup({ closeSignupWindow,toggleSignupWindow, toggleLog
     }
 
     function navigatetoLogin() {
-        closeSignupWindow()
-        toggleLoginWindow()
+        closeSignupOverlay()
+        toggleLoginOverlay()
     }
 
     return (
@@ -64,7 +72,7 @@ export default function Signup({ closeSignupWindow,toggleSignupWindow, toggleLog
             <div>
                 <div id='smalldivforsignup' className='p-10 bg-white'>
                     <div id="divofcrossinsidesignupdiv" className="">
-                        <button onClick={toggleSignupWindow} className="close-button">x</button>
+                        <button onClick={toggleSignupOverlay} className="close-button">x</button>
                     </div>
                     <form>
                         <div class="mb-3">

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Signup from "./Signup";
@@ -6,22 +6,30 @@ import Signup from "./Signup";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '/src/Pages/Loginorsignup/Login.css'
 
-export default function Login({ closeLoginWindow, toggleLoginWindow, toggleSignupWindow }) {
-    const navigate = useNavigate();
+import { useAuth } from "../../contexts/AuthContext";
+import { useUser } from "../../contexts/UserContext";
+import { OverlayContext } from '../../contexts/OverlayContext';
 
-    const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+export default function Login() {
+    const navigate = useNavigate();
+    const [password, setPassword] = useState('');
+    const { isLoggedIn,setIsLoggedIn } = useAuth();
+    const {user,setUser,email, setEmail}=useUser()
+    const { showLoginOverlay,setShowLoginOverlay, showSignupOverlay,setShowSignupOverlay,toggleLoginOverlay,toggleSignupOverlay,closeLoginOverlay,closeSignupOverlay } = useContext(OverlayContext);
+
+
+    
 
     async function submit(e) {
         e.preventDefault();
         localStorage.setItem('token', true);
-        
+
         try {
             const response = await axios.post("http://localhost:8000/auth/login", { email, password });
             console.log(response);
             setIsLoggedIn(true);
-            closeLoginWindow();
+            closeLoginOverlay();
         } catch {
             console.log(e);
             alert("Email is not signed up or password is wrong");
@@ -29,12 +37,12 @@ export default function Login({ closeLoginWindow, toggleLoginWindow, toggleSignu
     }
 
     function navigatetoSignup() {
-        toggleSignupWindow(); // Toggle the Signup window when Signup is clicked
-        closeLoginWindow()
+        toggleSignupOverlay(); // Toggle the Signup window when Signup is clicked
+        closeLoginOverlay()
     }
 
     if (isLoggedIn) {
-        toggleLoginWindow();
+        toggleLoginOverlay();
     }
 
     return (
@@ -42,7 +50,7 @@ export default function Login({ closeLoginWindow, toggleLoginWindow, toggleSignu
             <div>
                 <div id="smalldiv" className="p-10 bg-white" >
                     <div id="divofcrossinsidelogindiv" className="">
-                        <button onClick={toggleLoginWindow} className="close-button">x</button>
+                        <button onClick={toggleLoginOverlay} className="close-button">x</button>
                     </div>
 
                     <form action="POST">

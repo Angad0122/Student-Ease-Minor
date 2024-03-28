@@ -1,24 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import './Header.css'
 import Login from "../../Pages/Loginorsignup/Login";
 import Signup from "../../Pages/Loginorsignup/Signup";
 
-export default function Header({ email, setEmail, password, setPassword, submit }) {
-    const [showLoginWindow, setShowLoginWindow] = useState(false);
-    const [showSignupWindow, setShowSignupWindow] = useState(false);
-    function toggleLoginWindow() {
-        setShowLoginWindow(!showLoginWindow);
-    }
-    function toggleSignupWindow() {
-        setShowSignupWindow(!showSignupWindow);
-    }
-    function closeLoginWindow() {
-        setShowLoginWindow(false);
-    }
-    function closeSignupWindow() {
-        setShowSignupWindow(false);
-    }
+import { useUser } from "../../contexts/UserContext";
+import { OverlayContext } from '../../contexts/OverlayContext';
+
+
+export default function Header() {
+    const { user, setUser, email, setEmail } = useUser();
+    const { showLoginOverlay,setShowLoginOverlay, showSignupOverlay,setShowSignupOverlay,toggleLoginOverlay,toggleSignupOverlay,closeLoginOverlay,closeSignupOverlay } = useContext(OverlayContext);
 
     function search(e) {
         e.preventDefault()
@@ -39,7 +31,7 @@ export default function Header({ email, setEmail, password, setPassword, submit 
                     </div>
                     <div className="flex items-center lg:order-2">
                         <button
-                            onClick={toggleLoginWindow}
+                            onClick={toggleLoginOverlay}
                             className="text-white bg-yellow-400 hover:bg-yellow-400 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
                         >
                             Account
@@ -75,17 +67,17 @@ export default function Header({ email, setEmail, password, setPassword, submit 
 
 
 
-            {showLoginWindow && (
+            {showLoginOverlay && (
                 <div className="overlay">
-                    <Login closeLoginWindow={closeLoginWindow} toggleLoginWindow={toggleLoginWindow} toggleSignupWindow={toggleSignupWindow}/>
+                    <Login />
                 </div>
             )}
-            {showSignupWindow && (
+            {showSignupOverlay && (
                 <div className="overlay">
-                    <Signup closeSignupWindow={closeSignupWindow}  toggleSignupWindow={toggleSignupWindow} toggleLoginWindow={toggleLoginWindow} />
+                    <Signup />
                 </div>
             )}
-            
+
         </header>
     );
 }
