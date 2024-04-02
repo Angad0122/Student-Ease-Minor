@@ -42,7 +42,7 @@ app.post("/auth/login", async (req, res) => {
     const { email, password } = req.body;
 
     // Find the user by email or username
-    const user = await User_model.findOne({ $or: [{ email }, { username: email }] });
+    const user = await User_model.findOne({ $or: [{ email }, { username: email }] })
 
     if (!user) {
         // If user does not exist, return an error response
@@ -56,8 +56,9 @@ app.post("/auth/login", async (req, res) => {
     }
 
     // If email and password match, consider it a successful login
-    res.status(200).json({ message: 'Login successful' });
+    res.status(200).json({ message: 'Login successful', username: user.username });
 });
+
 
 
 

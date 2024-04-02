@@ -2,6 +2,7 @@ import React, { createContext, useState,useContext } from 'react';
 
 export const AuthContext = createContext({
   isLoggedIn:false
+
 });
 
 export const AuthProvider = ({ children }) => {

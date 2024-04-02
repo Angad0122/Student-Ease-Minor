@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Signup from "./Signup";
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '/src/Pages/Loginorsignup/Login.css'
 
@@ -14,12 +12,12 @@ import { OverlayContext } from '../../contexts/OverlayContext';
 export default function Login() {
     const navigate = useNavigate();
     const [password, setPassword] = useState('');
-    const { isLoggedIn,setIsLoggedIn } = useAuth();
-    const {user,setUser,email, setEmail}=useUser()
-    const { showLoginOverlay,setShowLoginOverlay, showSignupOverlay,setShowSignupOverlay,toggleLoginOverlay,toggleSignupOverlay,closeLoginOverlay,closeSignupOverlay } = useContext(OverlayContext);
+    const { isLoggedIn, setIsLoggedIn } = useAuth();
+    const { user, setUser, email, setEmail } = useUser()
+    const { showLoginOverlay, setShowLoginOverlay, showSignupOverlay, setShowSignupOverlay, toggleLoginOverlay, toggleSignupOverlay, closeLoginOverlay, closeSignupOverlay } = useContext(OverlayContext);
 
 
-    
+
 
     async function submit(e) {
         e.preventDefault();
@@ -29,20 +27,18 @@ export default function Login() {
             const response = await axios.post("http://localhost:8000/auth/login", { email, password });
             console.log(response);
             setIsLoggedIn(true);
+            setUser(response.data.username);
             closeLoginOverlay();
         } catch {
             console.log(e);
             alert("Email is not signed up or password is wrong");
         }
+        
     }
 
     function navigatetoSignup() {
-        toggleSignupOverlay(); // Toggle the Signup window when Signup is clicked
+        toggleSignupOverlay();
         closeLoginOverlay()
-    }
-
-    if (isLoggedIn) {
-        toggleLoginOverlay();
     }
 
     return (

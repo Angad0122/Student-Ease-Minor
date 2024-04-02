@@ -1,21 +1,22 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import './Header.css'
+import './Header.css';
 import Login from "../../Pages/Loginorsignup/Login";
 import Signup from "../../Pages/Loginorsignup/Signup";
 
 import { useUser } from "../../contexts/UserContext";
 import { OverlayContext } from '../../contexts/OverlayContext';
+import { useAuth } from "../../contexts/AuthContext";
 
 
 export default function Header() {
     const { user, setUser, email, setEmail } = useUser();
-    const { showLoginOverlay,setShowLoginOverlay, showSignupOverlay,setShowSignupOverlay,toggleLoginOverlay,toggleSignupOverlay,closeLoginOverlay,closeSignupOverlay } = useContext(OverlayContext);
+    const { showLoginOverlay, setShowLoginOverlay, showSignupOverlay, setShowSignupOverlay, toggleLoginOverlay, toggleSignupOverlay, closeLoginOverlay, closeSignupOverlay } = useContext(OverlayContext);
+    const { isLoggedIn, setIsLoggedIn } = useAuth();
 
     function search(e) {
-        e.preventDefault()
+        e.preventDefault();
     }
-
 
     return (
         <header className="bg-black z-50 top-0">
@@ -30,12 +31,24 @@ export default function Header() {
                         </div>
                     </div>
                     <div className="flex items-center lg:order-2">
-                        <button
-                            onClick={toggleLoginOverlay}
-                            className="text-white bg-yellow-400 hover:bg-yellow-400 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
-                        >
-                            Account
-                        </button>
+                        {isLoggedIn ? (
+                            <div className="relative">
+                                <button className="text-white bg-yellow-400 hover:bg-yellow-400 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none">
+                                    {user}
+                                </button>
+                                <div className="dropdown-menu absolute z-10 -right-2 top-full bg-white border border-gray-200 rounded-lg shadow-lg p-2">
+                                    <span className="block font-semibold">{user}</span>
+                                    <NavLink to="/logout" className="block text-gray-600 hover:text-gray-800 py-1">Logout</NavLink>
+                                </div>
+                            </div>
+                        ) : (
+                            <button
+                                onClick={toggleLoginOverlay}
+                                className="text-white bg-yellow-400 hover:bg-yellow-400 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
+                            >
+                                Account
+                            </button>
+                        )}
                         <button
                             className="text-white bg-yellow-400 hover:bg-yellow-400 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
                         >
@@ -63,10 +76,6 @@ export default function Header() {
                 </div>
             </nav>
 
-
-
-
-
             {showLoginOverlay && (
                 <div className="overlay">
                     <Login />
@@ -77,7 +86,6 @@ export default function Header() {
                     <Signup />
                 </div>
             )}
-
         </header>
     );
 }
