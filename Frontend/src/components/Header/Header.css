@@ -11,6 +11,27 @@
     z-index: 2; 
   }
 
+  .dropdown-menu {
+    display: none; /* Hide the dropdown menu by default */
+  }
+  
+  .dropdown-menu.active {
+    display: block; /* Show the dropdown menu when the active class is applied */
+  }
+  
+  /* Add any additional styling you need for the dropdown menu */
+  .dropdown-menu button {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    text-align: left;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+  }
+  
+  .dropdown-menu button:hover {
+    background-color: #f3f4f6;
+  }
   
   
 

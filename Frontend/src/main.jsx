@@ -10,6 +10,8 @@ import Aboutus from './Pages/Aboutus/Aboutus';
 import Contact from './Pages/Contact/Contact';
 import Error from './Pages/404/Error';
 import Onsearchcard from './components/Onsearchcard/Onsearchcard';
+import SellBooks from './Pages/SellBooks/SellBooks.jsx';
+
 
 import { OverlayProvider } from './contexts/OverlayContext.jsx';
 import { UserProvider } from './contexts/UserContext.jsx';
@@ -30,6 +32,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               <Route path="/about" element={<Aboutus />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/onsearch" element={<Onsearchcard />} />
+              <Route path="/sellbook" element={<SellBooks />} />
+              
               <Route path="*" element={<Error />} />
             </Routes>
           </BrowserRouter>

@@ -1,0 +1,52 @@
+#maindiv{
+    background: #00a884;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+#formdiv{
+    border-radius: 10%;
+    border-color: black;
+    border-width: 2px;
+    padding: 5%;
+    width: 50%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+#submitbutton{
+    margin-left: 30%;
+    margin-right: 30%;
+    padding: 2%;
+    border-radius: 5px;
+    font-size: large;
+    color: white;
+    background: #008307;
+    display: flex;
+    justify-content: center;
+    
+}
+.uploded{
+    border-radius: 20px;
+}
+#divonsubmit {
+    padding: 100px;
+}
+
+
+.inputheading{
+    font-size: x-large;
+    color: black;
+    margin-bottom: 2%;
+}
+
+.inputfield{
+    padding-left:  3% ;
+    padding-right:  3% ;
+    height: 2em;
+    border-radius: 20px;
+    text-align: left;
+    width: 100%;
+    margin-bottom: 2%;
+    
+}
