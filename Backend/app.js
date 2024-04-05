@@ -5,16 +5,27 @@ const connection = require('./db');
 const multer = require('multer');
 const path = require('path');
 
-const User_model = require("./Modals/user_model.js")
-const Book_model = require("./Modals/book_model.js")
-const Category_model = require("./Modals/category_model.js")
-const Order_model = require("./Modals/order_model.js")
+const User_model = require("./Modals/user_model.js");
+const Book_model = require("./Modals/book_model.js");
+const Category_model = require("./Modals/category_model.js");
+const Order_model = require("./Modals/order_model.js");
+
 dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use(express.urlencoded({ extended: false }));
 
 connection();
+const PORT = process.env.PORT;
+
+app.listen(PORT, () => {
+    console.log(`Server is running at Port ${PORT}`);
+});
+
+
+
+
 
 
 
@@ -66,25 +77,32 @@ app.post("/auth/login", async (req, res) => {
 
 
 
-
-// Multer setup for image upload
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/'); // Destination folder for storing images
+        cb(null, './uploads'); // Destination folder for storing images
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + path.extname(file.originalname)); // Unique filename with original extension
     }
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({
+    storage: storage,
+    fileFilter: function (req, file, cb) {
+        if (file.fieldname === "image") { // Ensure fieldname matches the name attribute in the form
+            cb(null, true);
+        } else {
+            cb(new Error("Unexpected field"));
+        }
+    }
+});
 
 app.post("/auth/sellbook", upload.single('image'), async (req, res) => {
     try {
         const { title, author, price } = req.body;
 
         // Validate incoming data
-        if (!title || !author || !price) {
+        if (!title || !author || !price || !req.file) {
             return res.status(400).json({ error: 'Missing required fields' });
         }
 
@@ -99,7 +117,7 @@ app.post("/auth/sellbook", upload.single('image'), async (req, res) => {
             title,
             author,
             price,
-            image: req.file ? req.file.path : null // Save the image path if uploaded
+            image: req.file.path // Save the file path if uploaded
         });
 
         // Save the new book entry
@@ -110,21 +128,3 @@ app.post("/auth/sellbook", upload.single('image'), async (req, res) => {
         res.status(500).json({ error: 'Failed to create book' });
     }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-const PORT = process.env.PORT;
-
-app.listen(PORT,()=>{
-    console.log(`Server is running at Port ${PORT}`);
-})

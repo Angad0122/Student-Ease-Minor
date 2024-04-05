@@ -14,13 +14,6 @@ export default function Home() {
   const [password, setPassword] = React.useState('')
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
 
-  useEffect(() => {
-    const authenticate = localStorage.getItem('token');
-    if (!authenticate) {
-      navigate("/login");
-    }
-  }, []);
-
   function navigateto() {
     navigate("/onsearch")
   }

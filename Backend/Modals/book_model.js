@@ -17,11 +17,9 @@ const BookSchema = new mongoose.Schema({
         ref: 'Category',
     },
     image: {
-        data: Buffer, // Binary data
-        contentType: String, // MIME type of the file
+        type: String // Store the file path or URL
     }
 }, { timestamps: true });
 
 const Book = mongoose.model("Book", BookSchema);
 module.exports = Book;
- 

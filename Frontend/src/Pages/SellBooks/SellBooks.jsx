@@ -12,30 +12,52 @@ function SellBooks() {
     const [image, setImage] = useState(null);
     const [bookUploaded, setBookUploaded] = useState(false);
 
+
+
+
+
     async function submit(e) {
         e.preventDefault();
-
+    
+        // Check if image is selected
+        if (!image) {
+            alert('Please select an image');
+            return;
+        }
+    
         const formData = new FormData();
         formData.append('title', title);
         formData.append('author', author);
         formData.append('price', price);
         formData.append('image', image);
-
+    
         try {
+            console.log('Axios Request:', {
+                title,
+                author,
+                price,
+            });
             const response = await axios.post("http://localhost:8000/auth/sellbook", formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
+                    "Content-Type": "multipart/form-data"
+                },
             });
-            
-            
-            console.log(response);
             setBookUploaded(true);
-        } catch (err) {
-            console.error(err);
-            alert("Something went wrong");
+        } catch (error) {
+            if (error.response) {
+                alert(error.response.data.error);
+            } else if (error.request) {
+                alert('No response received from server');
+            } else {
+                alert('Error in request setup: ', error.message);
+            }
         }
     }
+    
+
+
+
+
 
 
 
@@ -49,36 +71,45 @@ function SellBooks() {
                     <h2 className="p-5 uploded bg-green-600">The Book is Uploded Successfully</h2>
                 </div>
             ) : (
-            <div id='maindiv'>
-                <h1 className='text-center mt-5 text-black'>Add the description  of your book here</h1>
-                <div id='formdiv'>
-                    <form action="/books" method="post" enctype="multipart/form-data">
-                        <div className='my-2'>
-                            <label className='inputheading' for="title">Title: </label><br />
-                            <input onChange={(e) => setTitle(e.target.value)} className='inputfield text-center ' type="text" id="title" name="book[title]" required /><br />
-                        </div>
+                <div id='maindiv'>
+                    <h1 className='text-center mt-5 text-black'>Add the description  of your book here</h1>
+                    <div id='formdiv'>
+                        <form action="/sellbook" method="POST" enctype="multipart/form-data">
+                            <div className='my-2'>
+                                <label className='inputheading' for="title">Title: </label><br />
+                                <input onChange={(e) => setTitle(e.target.value)} className='inputfield text-center ' type="text" id="title" name="book[title]" required /><br />
+                            </div>
 
-                        <div className='my-2'>
-                            <label className='inputheading' for="author">Author(s): </label><br />
-                            <input onChange={(e) => setAuthor(e.target.value)} className='inputfield text-center' type="text" id="author" name="book[authors][]" data-role="tagsinput" /><br />
-                        </div>
+                            <div className='my-2'>
+                                <label className='inputheading' for="author">Author: </label><br />
+                                <input onChange={(e) => setAuthor(e.target.value)} className='inputfield text-center' type="text" id="author" name="book[authors][]" data-role="tagsinput" /><br />
+                            </div>
 
-                        <div className='my-2'>
-                            <label className='inputheading' for="image">Upload Image: </label><br />
-                            <input onSelect={(e)=>setImage(e.target.value)} className=' text-center' type="file" accept=".jpg,.jpeg,.png,gif" id="image" name="book[image]" /><br />
-                        </div>
+                            <div className='my-2'>
+                                <label className='inputheading' for="image">Upload Image: </label><br />
+                                <input onChange={(e)=>setImage(e.target.files[0])} className=' text-center' type="file" accept=".jpg,.jpeg,.png,gif" id="image" name="image" /><br />
+                            </div>
+                            {image ?(<div id='imagepreviewer'>
+                                <h5>The selected Image is: </h5>
+                                <img height={100} width={100} src={image} alt="" />
 
-                        <div className='my-2'>
-                            <label className='inputheading' for="price">Price ($): </label><br />
-                            <input onChange={(e) => setPrice(e.target.value)} className='inputfield text-center' type="number" step="0.01" id="price" name="book[price]" /><br />
-                        </div>
+                            </div>
+                            ) : (
+                                <></>
+                            )}
+                            
 
-                        <div id='submitbutton' className=''>
-                            <button type="submit" onClick={submit} class="">Submit</button>
-                        </div>
-                    </form>
+                            <div className='my-2'>
+                                <label className='inputheading' for="price">Price (₹): </label><br />
+                                <input onChange={(e) => setPrice(e.target.value)} className='inputfield text-center' type="number" step="0.01" id="price" name="book[price]" /><br />
+                            </div>
+
+                            <div id='submitbutton' className=''>
+                                <button type="submit" onClick={submit} class="">Upload For Sell</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
             )}
             <Footer />
         </>

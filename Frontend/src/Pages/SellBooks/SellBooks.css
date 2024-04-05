@@ -6,6 +6,8 @@
     flex-direction: column;
 }
 #formdiv{
+    margin-bottom: 10%;
+    margin-top: 5%;
     border-radius: 10%;
     border-color: black;
     border-width: 2px;
@@ -25,6 +27,12 @@
     display: flex;
     justify-content: center;
     
+}
+#imagepreviewer{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
 }
 .uploded{
     border-radius: 20px;
