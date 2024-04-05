@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import './SellBooks.css'
+import { useAuth } from '../../contexts/AuthContext';
 function SellBooks() {
-
+    const {isLoggedIn} = useAuth()
 
     const [title, setTitle] = useState("");
     const [author, setAuthor] = useState("");
@@ -12,16 +14,21 @@ function SellBooks() {
     const [image, setImage] = useState(null);
     const [bookUploaded, setBookUploaded] = useState(false);
 
+    const navigate = useNavigate();
 
 
-
-
+useEffect(() => {
+  if (!isLoggedIn) {
+      alert("Loging first")
+      navigate('/home') 
+  }
+  }, [])
     async function submit(e) {
         e.preventDefault();
     
         // Check if image is selected
-        if (!image) {
-            alert('Please select an image');
+        if (!image || !title || !price || !author) {
+            alert('Missing fields');
             return;
         }
     

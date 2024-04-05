@@ -1,5 +1,9 @@
 import React, { useContext, useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+
+
 import './Header.css';
 import Login from "../../Pages/Loginorsignup/Login";
 import Signup from "../../Pages/Loginorsignup/Signup";
@@ -9,27 +13,24 @@ import { OverlayContext } from '../../contexts/OverlayContext';
 import { useAuth } from "../../contexts/AuthContext";
 
 export default function Header() {
+    const navigate = useNavigate();
     const { user, setUser, email, setEmail } = useUser();
     const { showLoginOverlay, setShowLoginOverlay, showSignupOverlay, setShowSignupOverlay, toggleLoginOverlay, toggleSignupOverlay, closeLoginOverlay, closeSignupOverlay } = useContext(OverlayContext);
     const { isLoggedIn, setIsLoggedIn } = useAuth();
-
-    const [isOpen, setIsOpen] = useState(false);
-
-    const toggleDropdown = () => {
-        setIsOpen(!isOpen);
-    };
-
-    const closeDropdown = () => {
-        setIsOpen(false);
-    };
 
     function search(e) {
         e.preventDefault();
     }
 
-    function logout(e) {
-        setIsLoggedIn(!isLoggedIn);
+    function logout (){
+        setIsLoggedIn(false)
+        navigate('/home')
     }
+
+    function navigatetosellbook(){
+        navigate("/sellbook")
+    }
+
 
     return (
         <header className="bg-black top-0">
@@ -47,36 +48,12 @@ export default function Header() {
                         {isLoggedIn ? (
                             <>
                                 <div className="relative z-5" >
-                                    <button
-                                    onMouseEnter={toggleDropdown}
-                                    onMouseLeave={closeDropdown}
-                                        className="text-white bg-yellow-400 hover:bg-yellow-400 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
-                                        
-                                    >
-                                        {user}
-                                    </button>
-                                    {isOpen && (
-                                        <div className="dropdown-menu absolute z-5 -right-2 top-full bg-white border border-gray-200 rounded-lg shadow-lg p-2">
-                                            <button
-                                                className="block text-gray-600 hover:text-gray-800 py-1"
-                                                onClick={closeDropdown}
-                                            >
-                                                Profile
-                                            </button>
-                                            <button
-                                                className="block text-gray-600 hover:text-gray-800 py-1"
-                                                onClick={closeDropdown}
-                                            >
-                                                Orders
-                                            </button>
-                                            <button
-                                                className="block text-gray-600 hover:text-gray-800 py-1"
-                                                onClick={logout}
-                                            >
-                                                Logout
-                                            </button>
-                                        </div>
-                                    )}
+                                    <DropdownButton id="dropdown-basic-button" title={user}>
+                                        <Dropdown.Item >Cart</Dropdown.Item>
+                                        <Dropdown.Item >Orders</Dropdown.Item>
+                                        <Dropdown.Item onClick={navigatetosellbook}>Sell Book</Dropdown.Item>
+                                        <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
+                                    </DropdownButton>
                                 </div>
 
                             </>
@@ -88,11 +65,7 @@ export default function Header() {
                                 Account
                             </button>
                         )}
-                        <button
-                            className="text-white bg-yellow-400 hover:bg-yellow-400 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
-                        >
-                            Cart
-                        </button>
+                        
                     </div>
 
                     <div className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
@@ -106,10 +79,10 @@ export default function Header() {
                             <li>
                                 <NavLink to={"/contact"} className="bg-black-500 hover:bg-yellow-400 text-white font-bold py-2 px-2 rounded">Contact us</NavLink>
                             </li>
-                            <form className="d-flex" role="search">
+                            {/* <form className="d-flex" role="search">
                                 <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                                 <button onClick={search} className="bg-black-500 hover:bg-yellow-400 text-white font-bold py-2 px-2 rounded" type="submit">Search</button>
-                            </form>
+                            </form> */}
                         </ul>
                     </div>
                 </div>
@@ -128,3 +101,8 @@ export default function Header() {
         </header>
     );
 }
+
+
+
+
+
