@@ -6,38 +6,59 @@ import Footer from '../../components/Footer/Footer'
 import './SellBooks.css'
 import { useAuth } from '../../contexts/AuthContext';
 function SellBooks() {
-    const {isLoggedIn} = useAuth()
+    const { isLoggedIn } = useAuth()
 
     const [title, setTitle] = useState("");
     const [author, setAuthor] = useState("");
     const [price, setPrice] = useState(0);
     const [image, setImage] = useState(null);
+    const [imagePreview, setImagePreview] = useState(null)
     const [bookUploaded, setBookUploaded] = useState(false);
 
     const navigate = useNavigate();
 
 
-useEffect(() => {
-  if (!isLoggedIn) {
-      alert("Loging first")
-      navigate('/home') 
-  }
-  }, [])
+    useEffect(() => {
+        if (!isLoggedIn) {
+            alert("Loging first")
+            navigate('/home')
+        }
+    }, [])
+
+
+
+
+    function setImageAndPreview(e) {
+        setImage(e.target.files[0])
+        
+        var reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0]);
+        reader.onload = ()=>{
+            setImagePreview(reader.result)
+        }
+        reader.onerror = error => {
+            console.log("error",error)
+        }
+    }
+
+
+
+
     async function submit(e) {
         e.preventDefault();
-    
+
         // Check if image is selected
         if (!image || !title || !price || !author) {
             alert('Missing fields');
             return;
         }
-    
+
         const formData = new FormData();
         formData.append('title', title);
         formData.append('author', author);
         formData.append('price', price);
         formData.append('image', image);
-    
+
         try {
             console.log('Axios Request:', {
                 title,
@@ -60,7 +81,7 @@ useEffect(() => {
             }
         }
     }
-    
+
 
 
 
@@ -94,17 +115,17 @@ useEffect(() => {
 
                             <div className='my-2'>
                                 <label className='inputheading' for="image">Upload Image: </label><br />
-                                <input onChange={(e)=>setImage(e.target.files[0])} className=' text-center' type="file" accept=".jpg,.jpeg,.png,gif" id="image" name="image" /><br />
+                                <input onChange={setImageAndPreview} className=' text-center' type="file" accept=".jpg,.jpeg,.png,gif" id="image" name="image" /><br />
                             </div>
-                            {image ?(<div id='imagepreviewer'>
+                            {image ? (<div id='imagepreviewer'>
                                 <h5>The selected Image is: </h5>
-                                <img height={100} width={100} src={image} alt="" />
+                                <img height={100} width={100} src={imagePreview} />
 
                             </div>
                             ) : (
                                 <></>
                             )}
-                            
+
 
                             <div className='my-2'>
                                 <label className='inputheading' for="price">Price (₹): </label><br />
