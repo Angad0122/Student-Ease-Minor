@@ -11,32 +11,39 @@ import Contact from './Pages/Contact/Contact';
 import Error from './Pages/404/Error';
 import Onsearchcard from './components/Onsearchcard/Onsearchcard';
 import SellBooks from './Pages/SellBooks/SellBooks.jsx';
+import ViewProducts from './Pages/ViewProducts/ViewProducts.jsx';
 
 
 import { OverlayProvider } from './contexts/OverlayContext.jsx';
 import { UserProvider } from './contexts/UserContext.jsx';
 import { AuthProvider } from './contexts/AuthContext.jsx';
+import { ProductListProvider } from './contexts/ProductListContext.jsx';
+import { AdminProvider } from './contexts/AdminContext.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <UserProvider>
-      <AuthProvider>
-        <OverlayProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/admin" element={<Adminpanel />} />
-              <Route path="/home" element={<Home />} />
-              <Route path="/about" element={<Aboutus />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/onsearch" element={<Onsearchcard />} />
-              <Route path="/sellbook" element={<SellBooks />} />
-              
-              <Route path="*" element={<Error />} />
-            </Routes>
-          </BrowserRouter>
-        </OverlayProvider>
-      </AuthProvider>
-    </UserProvider>
+    <AdminProvider>
+      <UserProvider>
+        <AuthProvider>
+          <OverlayProvider>
+            <ProductListProvider>
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/admin" element={<Adminpanel />} />
+                  <Route path="/home" element={<Home />} />
+                  <Route path="/about" element={<Aboutus />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/onsearch" element={<Onsearchcard />} />
+                  <Route path="/sellbook" element={<SellBooks />} />
+                  <Route path="/viewproducts" element={<ViewProducts />} />
+                  <Route path="*" element={<Error />} />
+                </Routes>
+              </BrowserRouter>
+            </ProductListProvider>
+          </OverlayProvider>
+        </AuthProvider>
+      </UserProvider>
+    </AdminProvider>
   </React.StrictMode>
 );

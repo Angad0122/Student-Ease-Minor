@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 
-const BookSchema = new mongoose.Schema({
-    bookId: {
+const UniformSchema = new mongoose.Schema({
+    uniformId: {
         type: String,
         required: true,
-        unique: true 
+        unique: true
     },
-    title: {
+    type: {
         type: String,
         required: true
     },
@@ -14,7 +14,7 @@ const BookSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    author: {
+    organization: {
         type: String
     },
     image: {
@@ -22,5 +22,5 @@ const BookSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-const Book = mongoose.model("Book", BookSchema);
-module.exports = Book;
+const Uniform = mongoose.model("Uniform", UniformSchema);
+module.exports = Uniform;

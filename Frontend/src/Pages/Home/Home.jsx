@@ -4,47 +4,36 @@ import Footer from "../../components/Footer/Footer";
 import { useNavigate } from "react-router-dom";
 
 import "./Home.css";
+import { useProductList } from "../../contexts/ProductListContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 
 
 export default function Home() {
   const navigate = useNavigate();
 
+  const { showBooks, setShowBooks, showUniforms, setShowUniforms } = useProductList()
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
+
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
 
-  function navigateto() {
-    navigate("/onsearch")
+  const viewuniforms = () => {
+    setShowUniforms(true)
+    setShowBooks(false)
+    navigate("/viewproducts")
   }
-
- 
-
   
-
-
-
-  async function submit(e) {
-    e.preventDefault();
-    localStorage.setItem('token', true);
-    // navigate("/");
-
-    try {
-      const response = await axios.post("http://localhost:8000/auth/login", { email, password });
-      console.log(response);
-      setIsLoggedIn(true); // Set isLoggedIn state to true upon successful login
-    }
-    catch {
-      console.log(e);
-      alert("Email is not signed up or password is wrong")
-    }
+  const viewbooks = ()=> {
+    setShowBooks(true);
+    setShowUniforms(false)
+    navigate('/viewproducts')
   }
 
-
-
-
-
-
+  function navigatetosellbook() {
+    navigate("/sellbook")
+  }
 
 
 
@@ -52,12 +41,7 @@ export default function Home() {
 
   return (
     <>
-      <Header email={email}
-        setEmail={setEmail}
-        password={password}
-        setPassword={setPassword}
-        submit={submit} />
-
+      <Header />
 
       <div className="carousel-container position-relative">
         <div id="carouselExample" className="carousel slide">
@@ -107,7 +91,7 @@ export default function Home() {
           </div>
           <div id="booksimage" className="right-pane">
             <img src="/public/uniforms.jpg" alt="" />
-            <button onClick={navigateto} id="booksbutton" className="viewbuttons">View All Uniforms</button>
+            <button onClick={viewuniforms} id="booksbutton" className="viewbuttons">View All Uniforms</button>
           </div>
         </div>
 
@@ -122,36 +106,27 @@ export default function Home() {
           </div>
           <div id="booksimage" className="right-pane">
             <img src="/public/book.jpg" alt="" />
-            <button onClick={navigateto} id="booksbutton" className="viewbuttons">View All Books</button>
+            <button onClick={viewbooks} id="booksbutton" className="viewbuttons">View All Books</button>
+          </div>
+        </div>
+
+        <div className="container">
+          <div id="thebookscontent" className="left-pane">
+            <div className="homeleftcontent">
+              <br />
+              <h2 className="text-black">Sell your books on our platform:</h2>
+              <br />
+              <p className="text-2xl">If you have soem books that you do not need later and are occupying space. Why don't you sell it so that other person that needs those books can bye them. Sell those books on our platform and have one on one interaction with buyer as a seller. Even You can bargain on the selling price </p>
+            </div>
+          </div>
+          <div id="booksimage" className="right-pane">
+            <img src="/public/sellbooks.jpg" alt="" />
+            <button onClick={navigatetosellbook} id="booksbutton" className="viewbuttons">Sell Book</button>
           </div>
         </div>
 
 
       </div>
-
-      {/* Overlay component */}
-      {isOverlayVisible && (
-        <div className="overlay">
-          <div id="smalldiv" className="p-10 bg-white" >
-            <form action="POST">
-              <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input onChange={(e) => { setEmail(e.target.value) }} type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='example123@gmail.com' />
-                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-              </div>
-              <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input onChange={(e) => { setPassword(e.target.value) }} type="password" class="form-control" id="exampleInputPassword1" />
-              </div>
-            </form>
-            <button onClick={submit} id="submitoflogin" type="submit" className="text-white">Submit</button>
-            <br />
-            <p>OR</p>
-            <button id="signup" onClick={navigateto} className="text-white">Signup</button>
-          </div>
-        </div>
-      )}
-
 
       <Footer />
     </>

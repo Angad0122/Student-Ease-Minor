@@ -41,9 +41,17 @@ function SellBooks() {
         }
     }
 
+    function generateBookId() {
+        const timestamp = Date.now(); // Get current timestamp
+        const randomString = Math.random().toString(36).substring(2, 8); // Generate random string
+        return `${timestamp}-${randomString}`; // Combine timestamp and random string
+    }
+    
 
-
-
+    function reshowbbokform(){
+        setBookUploaded(false)
+        setImagePreview(null)
+    }
     async function submit(e) {
         e.preventDefault();
 
@@ -52,9 +60,11 @@ function SellBooks() {
             alert('Missing fields');
             return;
         }
+        const bookId = generateBookId();
 
         const formData = new FormData();
         formData.append('title', title);
+        formData.append('bookId', bookId); 
         formData.append('author', author);
         formData.append('price', price);
         formData.append('image', image);
@@ -64,6 +74,7 @@ function SellBooks() {
                 title,
                 author,
                 price,
+                bookId
             });
             const response = await axios.post("http://localhost:8000/auth/sellbook", formData, {
                 headers: {
@@ -97,6 +108,7 @@ function SellBooks() {
             {bookUploaded ? (
                 <div id="divonsubmit" className=" text-center">
                     <h2 className="p-5 uploded bg-green-600">The Book is Uploded Successfully</h2>
+                    <button id='uploadagain' onClick={reshowbbokform}>Upload another book</button>
                 </div>
             ) : (
                 <div id='maindiv'>
@@ -117,7 +129,7 @@ function SellBooks() {
                                 <label className='inputheading' for="image">Upload Image: </label><br />
                                 <input onChange={setImageAndPreview} className=' text-center' type="file" accept=".jpg,.jpeg,.png,gif" id="image" name="image" /><br />
                             </div>
-                            {image ? (<div id='imagepreviewer'>
+                            {imagePreview ? (<div id='imagepreviewer'>
                                 <h5>The selected Image is: </h5>
                                 <img height={100} width={100} src={imagePreview} />
 

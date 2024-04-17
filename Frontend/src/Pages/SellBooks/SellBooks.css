@@ -1,11 +1,12 @@
 #maindiv{
-    background: #00a884;
+   background:rgb(255, 212, 41);;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 #formdiv{
+    background: #00a884;
     margin-bottom: 10%;
     margin-top: 5%;
     border-radius: 10%;
@@ -17,8 +18,7 @@
     padding-bottom: 5%;
 }
 #submitbutton{
-    margin-left: 30%;
-    margin-right: 30%;
+    
     padding: 2%;
     border-radius: 5px;
     font-size: large;
@@ -27,6 +27,17 @@
     display: flex;
     justify-content: center;
     
+}
+#uploadagain{
+    margin-left: 30%;
+    margin-right: 30%;
+    padding: 1%;
+    border-radius: 5px;
+    font-size: large;
+    color: white;
+    background: #008307;
+    display: flex;
+    justify-content: center;
 }
 #imagepreviewer{
     justify-content: center;
@@ -39,6 +50,10 @@
 }
 #divonsubmit {
     padding: 100px;
+    justify-content:center;
+    align-items: center;
+    display: flex;
+    flex-direction:column;
 }
 
 

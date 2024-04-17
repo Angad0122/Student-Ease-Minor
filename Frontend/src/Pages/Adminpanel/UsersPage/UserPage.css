@@ -1,0 +1,34 @@
+.headings {
+    display: flex; /* Display headings horizontally */
+    justify-content: space-between; /* Spacing between headings */
+    background: #a7a7a7;
+    border-radius: 5px;
+}
+
+#alluserscontainer {
+    display: flex; /* Display user containers horizontally */
+    flex-wrap: wrap; /* Allow wrapping of user containers */
+    margin: 0 2%; /* Adjust margin */
+    gap: 5px; /* Add gap between user containers */
+}
+
+.user-container {
+    width: calc(100% - 10px); /* Set width for each user container */
+    background-color: #f0f0f0; /* Example background color */
+    border-radius: 5px; /* Example border radius */
+}
+
+.user-info {
+    padding: 5px; /* Padding for user info */
+    display: flex; /* Display headings horizontally */
+    justify-content: space-between; /* Spacing between headings */
+}
+
+.delete-btn {
+    padding: 5px 10px; /* Adjust padding */
+    background-color: #ff0000; /* Example background color */
+    color: #ffffff; /* Example text color */
+    border: none; /* Remove border */
+    border-radius: 3px; /* Example border radius */
+    cursor: pointer; /* Add cursor pointer */
+}
