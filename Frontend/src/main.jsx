@@ -4,8 +4,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
 import Home from './Pages/Home/Home';
 import Adminpanel from './Pages/Adminpanel/Adminpanel.jsx';
-import Login from './Pages/Loginorsignup/Login';
-import Signup from './Pages/Loginorsignup/Signup';
 import Aboutus from './Pages/Aboutus/Aboutus';
 import Contact from './Pages/Contact/Contact';
 import Error from './Pages/404/Error';

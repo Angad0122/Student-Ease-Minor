@@ -10,6 +10,7 @@ const Book_model = require("./Modals/book_model.js");
 const Uniform_model = require("./Modals/uniform_model.js");
 const Category_model = require("./Modals/category_model.js");
 const Order_model = require("./Modals/order_model.js");
+const { log } = require('handlebars');
 
 dotenv.config();
 const app = express();
@@ -23,6 +24,9 @@ const PORT = process.env.PORT;
 
 
 
+
+//=========================================================================================================================================================
+//Login Signup
 
 
 app.post("/signup", async (req, res) => {
@@ -46,9 +50,6 @@ app.post("/signup", async (req, res) => {
         res.status(500).json({ error: 'Failed to create user' });
     }
 });
-
-
-
 
 
 app.post("/auth/login", async (req, res) => {
@@ -76,6 +77,24 @@ app.post("/auth/login", async (req, res) => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//=========================================================================================================================================================
+//Defining Multer
+
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'D:/Minor project/level2/Frontend/uploads'); // Destination folder for storing images
@@ -96,6 +115,9 @@ const upload = multer({
     }
 });
 
+
+//=========================================================================================================================================================
+//Sell Book
 app.post("/auth/sellbook", upload.single('image'), async (req, res) => {
     try {
         const { title, author, price, bookId} = req.body;
@@ -133,6 +155,16 @@ app.post("/auth/sellbook", upload.single('image'), async (req, res) => {
 
 
 
+
+
+
+
+
+
+//=========================================================================================================================================================
+// View Books And Uniforms
+
+
 app.get("/viewbooks", async (req, res) => {
     try {
         const books = await Book_model.find(); // Fetch all books from the database
@@ -145,6 +177,29 @@ app.get("/viewbooks", async (req, res) => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//=========================================================================================================================================================
+// Admin Panel
+
+
+
+// User Control
 app.get("/admin/userPage", async (req, res) => {
     try {
         const users = await User_model.find(); // Fetch all users from the database
@@ -172,6 +227,10 @@ app.delete('/admin/userPage/:username', async (req, res) => {
 });
 
 
+
+
+//=========================================================================
+//Books Control
 app.get("/admin/bookPage", async (req, res) => {
     try {
         const books = await Book_model.find(); // Fetch all users from the database
@@ -198,6 +257,60 @@ app.delete('/admin/bookPage/:bookId', async (req, res) => {
     }
 });
 
+
+
+//============================================================================
+
+//Uniform Control
+app.get("/admin/uniformPage", async (req, res) => {
+    try {
+        const uniforms = await Uniform_model.find();
+        res.status(200).json({ uniforms });
+    } catch (error) {
+        console.error('Error fetching uniforms:', error);
+        res.status(500).json({ error: 'Failed to fetch uniforms' });
+    }
+});
+
+app.post("/admin/addUniform", upload.single('image'), async (req, res) => {
+    try {
+        const { type, organization, price } = req.body;
+
+        if (!type || !organization || !price || !req.file) {
+            return res.status(400).json({ error: 'Missing required fields' });
+        }
+
+        const newUniform = new Uniform_model({
+            type,
+            organization,
+            price,
+            image: req.file.path
+        });
+
+        const savedUniform = await newUniform.save();
+        res.status(201).json({ message: 'Uniform added successfully', uniform: savedUniform });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ error: 'Failed to add uniform' });
+    }
+});
+
+app.delete('/admin/uniformPage/:_id', async (req, res) => {
+    const { _id } = req.params;
+    try {
+        // Find the user by username and delete it
+        const deletedUniform = await Uniform_model.findOneAndDelete({ _id });
+        
+        if (!deletedUniform) {
+            return res.status(404).json({ error: 'Uniform not found' });
+        }
+
+        res.status(204).send(); 
+    } catch (error) {
+        console.error('Error deleting Uniform:', error);
+        res.status(500).json({ error: 'Failed to delete uniform' });
+    }
+});
 
 
 

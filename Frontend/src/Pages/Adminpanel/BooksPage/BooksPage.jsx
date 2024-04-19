@@ -44,7 +44,7 @@ function BooksPage() {
                         <div className='user-info'>
                             <p className='ml-2'>{book.title}</p>
                             <p>{book.author}</p>
-                            <p>{book.price}</p>
+                            <p>₹{book.price}</p>
                             <button className='delete-btn' onClick={() => handleDeleteUser(book.bookId)}>Delete</button>
                         </div>
                     </div>

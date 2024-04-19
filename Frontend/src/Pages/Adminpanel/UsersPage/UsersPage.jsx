@@ -45,7 +45,7 @@ function UsersPage() {
                         <div className='user-info'>
                             <p className='ml-2'>{user.username}</p>
                             <p>{user.email}</p>
-                            <p>{user.phoneNumber}</p>
+                            <p>{user.phonenumber}</p>
                             <button className='delete-btn' onClick={() => handleDeleteUser(user.username)}>Delete</button>
                         </div>
                     </div>
