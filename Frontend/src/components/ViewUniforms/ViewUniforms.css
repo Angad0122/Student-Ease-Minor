@@ -1,0 +1,19 @@
+#nothingtosee{
+    margin: 50px;
+    padding: 20px;
+    background: #ff3636;
+    color: black;
+    border-radius: 30px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+.singleuniform{
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+    color: black;
+}
+.singleuniform:hover{
+    transform: scale(1.1);
+}
+

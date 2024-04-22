@@ -1,0 +1,80 @@
+#parentofmaincontainer {
+    padding: 10%;
+
+}
+
+#maincontainer {
+    display: flex; /* Add flex display */
+    justify-content: space-between; /* Add spacing between the two divs */
+    align-items: center;
+    width: 80vw;
+    height: 100%;
+    box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.5);
+    border-radius: 50px;
+}
+
+#leftside {
+    width: 400px;
+    height: 100%;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .image {
+        width: 300px;
+        border-radius: 5px;
+        border-color: #000000;
+        border-width: 1px;
+        margin-bottom: 50px;
+        transition: transform 0.3s ease; /* Add transition for smooth animation */
+    }
+    
+    .image:hover {
+        transform: scale(1.2); /* Increase the size of the image slightly */
+    }
+    
+    .buttons {
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 50px;
+    }
+    .addtocartbutton {
+        padding: 10px 50px;
+        margin-bottom: 10px;
+        background: rgb(250 204 21);
+        border-radius: 10px;
+    }
+    .addtocartbutton:hover{
+        background-color: rgb(183, 146, 0);
+    }
+
+    .orderbutton {
+        padding: 10px 50px;
+        margin-top: 10px;
+        background: rgb(250 204 21);
+        border-radius: 10px;
+    }
+    .orderbutton:hover{
+        background-color: rgb(183, 146, 0);    }
+        
+}
+
+
+
+
+
+
+
+
+
+#rightside {
+    flex: 1; /* Allow the right side to grow and fill remaining space */
+    height: 80vh;
+    background: #ffffff;
+    margin: 20px;
+    padding: 50px;
+    /* Add other styles as needed */
+}

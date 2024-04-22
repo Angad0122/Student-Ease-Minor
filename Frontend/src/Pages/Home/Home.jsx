@@ -90,7 +90,7 @@ export default function Home() {
             </div>
           </div>
           <div id="booksimage" className="right-pane">
-            <img src="/public/uniforms.jpg" alt="" />
+            <img src="/uniforms.jpg" alt="" />
             <button onClick={viewuniforms} id="booksbutton" className="viewbuttons">View All Uniforms</button>
           </div>
         </div>
@@ -105,7 +105,7 @@ export default function Home() {
             </div>
           </div>
           <div id="booksimage" className="right-pane">
-            <img src="/public/book.jpg" alt="" />
+            <img src="/book.jpg" alt="" />
             <button onClick={viewbooks} id="booksbutton" className="viewbuttons">View All Books</button>
           </div>
         </div>
@@ -120,7 +120,7 @@ export default function Home() {
             </div>
           </div>
           <div id="booksimage" className="right-pane">
-            <img src="/public/sellbooks.jpg" alt="" />
+            <img src="/sellbooks.jpg" alt="" />
             <button onClick={navigatetosellbook} id="booksbutton" className="viewbuttons">Sell Book</button>
           </div>
         </div>

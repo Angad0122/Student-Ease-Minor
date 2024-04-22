@@ -14,7 +14,7 @@ const { log } = require('handlebars');
 
 dotenv.config();
 const app = express();
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use( express.static(path.join(__dirname, './public')));
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
@@ -97,7 +97,7 @@ app.post("/auth/login", async (req, res) => {
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'D:/Minor project/level2/Frontend/uploads'); // Destination folder for storing images
+        cb(null, 'public/assets'); // Destination folder for storing images
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + path.extname(file.originalname)); // Unique filename with original extension
@@ -172,6 +172,16 @@ app.get("/viewbooks", async (req, res) => {
     } catch (error) {
         console.error('Error fetching books:', error);
         res.status(500).json({ error: 'Failed to fetch books' });
+    }
+});
+
+app.get("/viewuniforms", async (req, res) => {
+    try {
+        const uniforms = await Uniform_model.find(); // Fetch all books from the database
+        res.status(200).json({ uniforms });
+    } catch (error) {
+        console.error('Error fetching uniforms:', error);
+        res.status(500).json({ error: 'Failed to fetch uniforms' });
     }
 });
 
