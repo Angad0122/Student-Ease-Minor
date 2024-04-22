@@ -93,7 +93,7 @@ export default function Signup() {
                             <input onChange={(e) => { setPassword(e.target.value) }} type="password" class="form-control" placeholder='Minimum length should be 8' />
                         </div>
                     </form>
-                    <button onClick={submit} id="signupsubmit" type="submit" className="text-white">Submit</button>
+                    <button onClick={submit} id="signupsubmit" type="submit" className="text-white">Signup</button>
                     <br />
                     <p>OR</p>
                     <button id="signup" onClick={navigatetoLogin} className="text-white">Login</button>

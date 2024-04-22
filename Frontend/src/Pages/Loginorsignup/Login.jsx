@@ -60,7 +60,7 @@ export default function Login() {
                             <input onChange={(e) => { setPassword(e.target.value) }} type="password" class="form-control" id="exampleInputPassword1" />
                         </div>
                     </form>
-                    <button onClick={submit} id="submitoflogin" type="submit" className="text-white">Submit</button>
+                    <button onClick={submit} id="submitoflogin" type="submit" className="text-white">Login</button>
                     <br />
                     <p>OR</p>
                     <button id="signup" onClick={navigatetoSignup} className="text-white">Signup</button>

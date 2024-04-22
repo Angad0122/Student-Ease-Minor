@@ -20,18 +20,18 @@ export default function Footer() {
                     <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
                         <div>
                             <h2 className="mb-6 text-sm font-semibold text-yellow-400 uppercase">Resources</h2>
-                            <ul className="text-gray-500 font-medium">
+                            <ul className="text-gray-500 font-medium m-0 pl-4">
                                 <li className="mb-4">
                                     <Link to="/" className=" text-white ">
                                         Home
                                     </Link>
                                 </li>
-                                <li>
+                                <li className="mb-4">
                                     <Link to="/about" className="text-white">
                                         About
                                     </Link>
                                 </li>
-                                <li>
+                                <li className="mb-4">
                                     <Link to="/contact" className="text-white">
                                         Contact
                                     </Link>
