@@ -116,7 +116,7 @@ export default function Home() {
               <br />
               <h2 className="text-black">Sell your books on our platform:</h2>
               <br />
-              <p className="text-2xl">If you have soem books that you do not need later and are occupying space. Why don't you sell it so that other person that needs those books can bye them. Sell those books on our platform and have one on one interaction with buyer as a seller. Even You can bargain on the selling price </p>
+              <p className="text-2xl">If you have some books that you do not need later and are occupying space. Why don't you sell it so that other person that needs those books can bye them. Sell those books on our platform and have one on one interaction with buyer as a seller. Even You can bargain on the selling price </p>
             </div>
           </div>
           <div id="booksimage" className="right-pane">

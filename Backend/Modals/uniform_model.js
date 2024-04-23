@@ -17,6 +17,9 @@ const UniformSchema = new mongoose.Schema({
     organization: {
         type: String
     },
+    description:{
+        type:String
+    },
     image: {
         type: String // Store the file path or URL
     }

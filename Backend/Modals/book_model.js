@@ -17,6 +17,15 @@ const BookSchema = new mongoose.Schema({
     author: {
         type: String
     },
+    description:{
+        type:String
+    },
+    sellername:{
+        type:String
+    },
+    phoneNumber:{
+        type:Number
+    },
     image: {
         type: String // Store the file path or URL
     }

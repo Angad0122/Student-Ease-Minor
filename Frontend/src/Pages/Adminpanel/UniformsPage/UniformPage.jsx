@@ -5,18 +5,19 @@ import './UniformPage.css';
 import axios from 'axios';
 
 function UniformPage() {
-    const[uniforms,setUniforms] = useState([]); //array of uniform objects
+    const [uniforms, setUniforms] = useState([]); //array of uniform objects
     const [showOverlay, setShowOverlay] = useState(false);
     const [formData, setFormData] = useState({
         type: '',
         organization: '',
         price: '',
+        description: '',
         image: null
     });
 
 
 
-    useEffect(()=>{
+    useEffect(() => {
         async function fetchUniforms() {
             try {
                 const response = await axios.get('http://localhost:8000/admin/uniformPage');
@@ -25,9 +26,9 @@ function UniformPage() {
                 console.error('Error fetching uniforms:', error);
             }
         }
-    
+
         fetchUniforms();
-    },[showOverlay])
+    }, [showOverlay])
 
 
     const handleChange = (e) => {
@@ -49,7 +50,9 @@ function UniformPage() {
             form.append('type', formData.type);
             form.append('organization', formData.organization);
             form.append('price', formData.price);
+            form.append('description', formData.description);
             form.append('image', formData.image);
+            
 
             const res = await axios.post('http://localhost:8000/admin/addUniform', form, {
                 headers: {
@@ -64,6 +67,7 @@ function UniformPage() {
                 type: '',
                 organization: '',
                 price: '',
+                description: '',
                 image: null
             });
             setShowOverlay(false);
@@ -79,7 +83,7 @@ function UniformPage() {
             console.error('Error deleting uniform:', error);
         }
     };
-    
+
     return (
         <>
             <div className='heading-and-add-div'>
@@ -147,10 +151,20 @@ function UniformPage() {
                             className='input'
                             type="file"
                             name="image"
-                            onChange={handleImageChange} // Use handleImageChange as onChange handler
+                            onChange={handleImageChange} 
                             placeholder="Add image URL"
                             required
                         />
+                        <input
+                            className='input'
+                            type="text"
+                            name="description"
+                            value={formData.description}
+                            onChange={handleChange}
+                            placeholder="Description"
+                            required
+                        />
+                        
 
 
                         <button className='overlaybutton' type="submit">Add</button>

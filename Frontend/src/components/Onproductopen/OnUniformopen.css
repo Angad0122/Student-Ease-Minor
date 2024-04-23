@@ -4,13 +4,16 @@
 }
 
 #maincontainer {
-    display: flex; /* Add flex display */
-    justify-content: space-between; /* Add spacing between the two divs */
+    display: flex;
+    /* Add flex display */
+    justify-content: space-between;
+    /* Add spacing between the two divs */
     align-items: center;
     width: 80vw;
     height: 100%;
-    box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.5);
     border-radius: 50px;
+    padding: 2%;
 }
 
 #leftside {
@@ -26,20 +29,22 @@
         border-radius: 5px;
         border-color: #000000;
         border-width: 1px;
-        margin-bottom: 50px;
+        margin-bottom: 25px;
         transition: transform 0.3s ease; /* Add transition for smooth animation */
     }
     
     .image:hover {
         transform: scale(1.2); /* Increase the size of the image slightly */
     }
-    
+    .sizeinput{
+        max-width: 150px;
+    }
     .buttons {
         justify-content: center;
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-top: 50px;
+        margin-top: 25px;
     }
     .addtocartbutton {
         padding: 10px 50px;
@@ -79,10 +84,14 @@
 
 
 #rightside {
-    flex: 1; /* Allow the right side to grow and fill remaining space */
+    flex: 1;
+    /* Allow the right side to grow and fill remaining space */
     height: 80vh;
     background: #ffffff;
-    margin: 20px;
-    padding: 50px;
+    margin: 10px;
+    overflow: auto;
+    /* Add scrollbar if necessary */
+    word-wrap: break-word;
+    /* Break words if they exceed the container width */
     /* Add other styles as needed */
 }

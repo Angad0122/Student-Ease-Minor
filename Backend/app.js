@@ -70,7 +70,7 @@ app.post("/auth/login", async (req, res) => {
     }
     
     // If email and password match, consider it a successful login
-    res.status(200).json({ message: 'Login successful', username: user.username });
+    res.status(200).json({ message: 'Login successful', username: user.username,email:user.email,phoneNumber:user.phonenumber });
 });
 
 
@@ -120,10 +120,10 @@ const upload = multer({
 //Sell Book
 app.post("/auth/sellbook", upload.single('image'), async (req, res) => {
     try {
-        const { title, author, price, bookId} = req.body;
+        const { title, author, price, bookId , description ,sellername, phoneNumber} = req.body;
 
         // Validate incoming data
-        if (!title || !author || !price || !req.file) {
+        if (!title || !author || !price || !description || !req.file) {
             return res.status(400).json({ error: 'Missing required fields' });
         }
 
@@ -139,6 +139,9 @@ app.post("/auth/sellbook", upload.single('image'), async (req, res) => {
             bookId,
             author,
             price,
+            description,
+            sellername,
+            phoneNumber,
             image: req.file.path // Save the file path if uploaded
         });
 
@@ -284,9 +287,9 @@ app.get("/admin/uniformPage", async (req, res) => {
 
 app.post("/admin/addUniform", upload.single('image'), async (req, res) => {
     try {
-        const { type, organization, price } = req.body;
+        const { type, organization, price, description } = req.body;
 
-        if (!type || !organization || !price || !req.file) {
+        if (!type || !organization || !price || !description || !req.file) {
             return res.status(400).json({ error: 'Missing required fields' });
         }
 
@@ -294,6 +297,7 @@ app.post("/admin/addUniform", upload.single('image'), async (req, res) => {
             type,
             organization,
             price,
+            description,
             image: req.file.path
         });
 

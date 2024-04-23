@@ -5,13 +5,17 @@ import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import './SellBooks.css'
 import { useAuth } from '../../contexts/AuthContext';
+import { useUser } from '../../contexts/UserContext';
 function SellBooks() {
     const { isLoggedIn } = useAuth()
+    const { user, setUser, email, setEmail, phoneNumber, setPhoneNumber } = useUser()
+
 
     const [title, setTitle] = useState("");
     const [author, setAuthor] = useState("");
     const [price, setPrice] = useState(0);
     const [image, setImage] = useState(null);
+    const [description, setDescription] = useState('');
     const [imagePreview, setImagePreview] = useState(null)
     const [bookUploaded, setBookUploaded] = useState(false);
 
@@ -30,14 +34,14 @@ function SellBooks() {
 
     function setImageAndPreview(e) {
         setImage(e.target.files[0])
-        
+
         var reader = new FileReader();
         reader.readAsDataURL(e.target.files[0]);
-        reader.onload = ()=>{
+        reader.onload = () => {
             setImagePreview(reader.result)
         }
         reader.onerror = error => {
-            console.log("error",error)
+            console.log("error", error)
         }
     }
 
@@ -46,9 +50,9 @@ function SellBooks() {
         const randomString = Math.random().toString(36).substring(2, 8); // Generate random string
         return `${timestamp}-${randomString}`; // Combine timestamp and random string
     }
-    
 
-    function reshowbbokform(){
+
+    function reshowbbokform() {
         setBookUploaded(false)
         setImagePreview(null)
     }
@@ -56,25 +60,32 @@ function SellBooks() {
         e.preventDefault();
 
         // Check if image is selected
-        if (!image || !title || !price || !author) {
+        if (!image || !title || !price || !author || !description) {
             alert('Missing fields');
             return;
         }
         const bookId = generateBookId();
 
         const formData = new FormData();
+        formData.append('bookId', bookId);
         formData.append('title', title);
-        formData.append('bookId', bookId); 
         formData.append('author', author);
         formData.append('price', price);
         formData.append('image', image);
+        formData.append('description', description);
+        formData.append('sellername',user);
+        formData.append('phoneNumber', phoneNumber);
 
         try {
             console.log('Axios Request:', {
                 title,
                 author,
                 price,
-                bookId
+                bookId,
+                description,
+                user,
+                phoneNumber,
+                image
             });
             const response = await axios.post("http://localhost:8000/auth/sellbook", formData, {
                 headers: {
@@ -142,6 +153,10 @@ function SellBooks() {
                             <div className='my-2'>
                                 <label className='inputheading' for="price">Price (₹): </label><br />
                                 <input onChange={(e) => setPrice(e.target.value)} className='inputfield text-center' type="number" step="0.01" id="price" name="book[price]" /><br />
+                            </div>
+                            <div className="my-2">
+                                <label className="inputheading" for='Description'>Description</label><br />
+                                <textarea onChange={(e) => { setDescription(e.target.value) }} className="form-control" id="exampleFormControlTextarea1" placeholder="Add Description here" rows="3"></textarea>
                             </div>
 
                             <div id='submitbutton' className=''>
