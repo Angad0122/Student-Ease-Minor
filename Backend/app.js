@@ -70,7 +70,7 @@ app.post("/auth/login", async (req, res) => {
     }
     
     // If email and password match, consider it a successful login
-    res.status(200).json({ message: 'Login successful', username: user.username,email:user.email,phoneNumber:user.phonenumber });
+    res.status(200).json({ message: 'Login successful', username: user.username,email:user.email,phoneNumber:user.phonenumber,userId:user._id });
 });
 
 
@@ -333,6 +333,65 @@ app.delete('/admin/uniformPage/:_id', async (req, res) => {
 
 
 
+
+
+
+
+
+//=========================================================================================================================================================
+//Orders
+
+//Uniform Order
+app.post("/auth/orderuniform", async (req, res) => {
+    try {
+        console.log(req.body);
+        const { orderPrice, OrderedproductId,size, address, customer,customerId} = req.body;
+        console.log("Backend request Log",orderPrice, OrderedproductId, address, customer);
+        // Validate incoming data
+        if (!customer ) {
+            return res.status(400).json({ error: 'Missing customer field' });
+        }
+        if ( !OrderedproductId  ) {
+            return res.status(400).json({ error: 'Missing OrderedProductId field' });
+        }
+        if (!orderPrice ) {
+            return res.status(400).json({ error: 'Missing OrderPrice field' });
+        }
+        if ( !address ) {
+            return res.status(400).json({ error: 'Missing address field' });
+        }
+
+        // Create a new Order entry
+        const newOrder = new Order_model({
+            orderPrice,
+            OrderedproductId,
+            size,
+            address,
+            customer,
+            customerId
+        });
+
+        // Save the new Order entry
+        const savedOrder = await newOrder.save();
+
+        // Find the user by ID
+        const user = await User_model.findById(customerId);
+
+        // Push the newly created order ID into the orders array of the user
+        user.orders.push(savedOrder._id);
+
+        // Save the updated user document
+        await user.save();
+
+        res.status(201).json({ message: 'Order created successfully', order: savedOrder, orderId: savedOrder._id });
+
+
+        
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to create order' });
+    }
+});
 
 
 

@@ -1,4 +1,5 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
+
 const userSchema = new mongoose.Schema({
     username:{
         type:String,
@@ -17,8 +18,17 @@ const userSchema = new mongoose.Schema({
     phonenumber:{
         type:Number,
         required:true
-    }    
-},{timestamps:true})
+    },    
+    orders: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Order', // Reference to the Order model
+        default:[]
+    }],
+    cart:[{
+        type: mongoose.Schema.Types.ObjectId,
+        
+    }]
+},{timestamps:true});
 
-const User = mongoose.model("User", userSchema)
+const User = mongoose.model("User", userSchema);
 module.exports = User;

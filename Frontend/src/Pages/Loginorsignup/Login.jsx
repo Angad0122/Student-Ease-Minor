@@ -13,7 +13,7 @@ export default function Login() {
     const navigate = useNavigate();
     const [password, setPassword] = useState('');
     const { isLoggedIn, setIsLoggedIn } = useAuth();
-    const { user, setUser, email, setEmail, phoneNumber, setPhoneNumber } = useUser()
+    const { userId, setUserId, user, setUser, email, setEmail, phoneNumber, setPhoneNumber } = useUser()
     const { toggleLoginOverlay, toggleSignupOverlay, closeLoginOverlay } = useContext(OverlayContext);
 
 
@@ -30,6 +30,7 @@ export default function Login() {
             setUser(response.data.username);
             setEmail(response.data.email)
             setPhoneNumber(response.data.phoneNumber)
+            setUserId(response.data.userId);
             closeLoginOverlay();
         } catch {
             console.log(e);

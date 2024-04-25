@@ -18,13 +18,14 @@ export default function Header() {
     const { showLoginOverlay, setShowLoginOverlay, showSignupOverlay, setShowSignupOverlay, toggleLoginOverlay, toggleSignupOverlay, closeLoginOverlay, closeSignupOverlay } = useContext(OverlayContext);
     const { isLoggedIn, setIsLoggedIn } = useAuth();
 
-    function search(e) {
-        e.preventDefault();
-    }
 
     function logout() {
         setIsLoggedIn(false)
         navigate('/home')
+    }
+
+    function gotoOrders(){
+
     }
 
 
@@ -48,7 +49,8 @@ export default function Header() {
                                 <div className="relative z-5" >
                                     <DropdownButton id="dropdown-basic-button" title={user}>
                                         <Dropdown.Item >Cart</Dropdown.Item>
-                                        <Dropdown.Item >Orders</Dropdown.Item>
+                                        <Dropdown.Item onClick={gotoOrders}>Orders</Dropdown.Item>
+                                        <hr className="m-1" />
                                         <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
                                     </DropdownButton>
                                 </div>
