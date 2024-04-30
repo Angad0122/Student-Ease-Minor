@@ -1,7 +1,9 @@
-export const transformImagePath =(url)=>{
-    const nomalizePath= url.replace(/\\/g,"/")
+export const transformImagePath = (url) => {
+    if (!url) {
+        return '';
+    }
 
-    const path = nomalizePath.replace("public/","")
-
-    return `http://localhost:8000/${path}`
-}
+    const nomalizePath = url.replace(/\\/g, "/");
+    const path = nomalizePath.replace("public/", "");
+    return `http://localhost:8000/${path}`;
+};

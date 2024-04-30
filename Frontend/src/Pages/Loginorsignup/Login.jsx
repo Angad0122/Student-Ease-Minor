@@ -13,7 +13,7 @@ export default function Login() {
     const navigate = useNavigate();
     const [password, setPassword] = useState('');
     const { isLoggedIn, setIsLoggedIn } = useAuth();
-    const { userId, setUserId, user, setUser, email, setEmail, phoneNumber, setPhoneNumber } = useUser()
+    const { userId, setUserId, user, setUser, email, setEmail, phoneNumber, setPhoneNumber, orders, setOrders, cart, setCart } = useUser()
     const { toggleLoginOverlay, toggleSignupOverlay, closeLoginOverlay } = useContext(OverlayContext);
 
 
@@ -25,12 +25,13 @@ export default function Login() {
 
         try {
             const response = await axios.post("http://localhost:8000/auth/login", { email, password });
-            console.log(response);
+            console.log(response.data);
             setIsLoggedIn(true);
             setUser(response.data.username);
             setEmail(response.data.email)
             setPhoneNumber(response.data.phoneNumber)
             setUserId(response.data.userId);
+            setOrders(response.data.orders);
             closeLoginOverlay();
         } catch {
             console.log(e);

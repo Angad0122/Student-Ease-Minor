@@ -17,6 +17,7 @@ import { UserProvider } from './contexts/UserContext.jsx';
 import { AuthProvider } from './contexts/AuthContext.jsx';
 import { ProductListProvider } from './contexts/ProductListContext.jsx';
 import { AdminProvider } from './contexts/AdminContext.jsx';
+import ViewOrders from './components/ViewOrders/ViewOrders.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -35,6 +36,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                   <Route path="/sellbook" element={<SellBooks />} />
                   <Route path="/viewproducts" element={<ViewProducts />} />
                   <Route path="/productopen" element={<Onproductopen />} />
+                  <Route path="/vieworders" element={<ViewOrders />} />
                   <Route path="*" element={<Error />} />
                 </Routes>
               </BrowserRouter>

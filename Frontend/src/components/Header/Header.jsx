@@ -11,6 +11,7 @@ import Signup from "../../Pages/Loginorsignup/Signup";
 import { useUser } from "../../contexts/UserContext";
 import { OverlayContext } from '../../contexts/OverlayContext';
 import { useAuth } from "../../contexts/AuthContext";
+import { useProductList } from "../../contexts/ProductListContext";
 
 export default function Header() {
     const navigate = useNavigate();
@@ -25,7 +26,7 @@ export default function Header() {
     }
 
     function gotoOrders(){
-
+        navigate('/vieworders')
     }
 
 

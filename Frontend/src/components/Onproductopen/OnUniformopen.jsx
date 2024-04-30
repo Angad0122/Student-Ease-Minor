@@ -18,7 +18,7 @@ function OnUniformopen({ product }) {
             alert('Missing fields');
             return;
         }
-        console.log("Frontend request Log", product.price, product._id, size,address, user, userId);
+        console.log("Frontend request Log", product.price, product._id, size, address, user, userId);
         try {
             const response = await axios.post("http://localhost:8000/auth/orderuniform", {
                 orderPrice: product.price,
@@ -28,7 +28,7 @@ function OnUniformopen({ product }) {
                 customer: user,
                 customerId: userId
             });
-            console.log("response log",response.data.order,response.data.orderId);
+            console.log("response log", response.data.order, response.data.orderId);
             setShowOrderOverlay(false)
             alert('Ordered Successful')
         } catch (error) {
@@ -60,6 +60,12 @@ function OnUniformopen({ product }) {
                         <h6>{product.type}</h6><br />
                         <h6>Price: ₹{product.price}</h6><br /><br />
                         <h6>{product.description}</h6><br />
+                        {(product.type == 'Shirt'||product.type =='T-shirt') ? (
+                            <img src="./Tshirtsizechart.jpg" alt="" />
+                        ) : (
+                            <img src="./pantsizechart.jpg" alt="" />
+                        )
+                        }
                     </div>
                 </div>
             </div>
@@ -85,11 +91,13 @@ function OnUniformopen({ product }) {
                                     required
                                 >
                                     <option value=''>Select Size</option>
-                                    <option value='XSmall'>XS</option>
                                     <option value='Small'>S</option>
                                     <option value='Medium'>M</option>
                                     <option value='Large'>L</option>
                                     <option value='XLarge'>XL</option>
+                                    <option value='XXLarge'>XXL</option>
+                                    <option value='3XLarge'>3XL</option>
+                                    <option value='4XLarge'>4XL</option>
                                 </select>
                             </div>
                             <button onClick={orderitem} className='overlay-order-button'>Order</button>

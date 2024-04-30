@@ -1,11 +1,6 @@
 const mongoose = require("mongoose");
 
 const UniformSchema = new mongoose.Schema({
-    // uniformId: {
-    //     type: String,
-    //     required: true,
-    //     unique: true
-    // },
     type: {
         type: String,
         required: true

@@ -70,7 +70,7 @@ app.post("/auth/login", async (req, res) => {
     }
     
     // If email and password match, consider it a successful login
-    res.status(200).json({ message: 'Login successful', username: user.username,email:user.email,phoneNumber:user.phonenumber,userId:user._id });
+    res.status(200).json({ message: 'Login successful', username: user.username,email:user.email,phoneNumber:user.phonenumber,userId:user._id, orders:user.orders });
 });
 
 
@@ -187,6 +187,50 @@ app.get("/viewuniforms", async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch uniforms' });
     }
 });
+
+app.get("/vieworders/:orderId", async (req, res) => {
+    const { orderId } = req.params;
+    try {
+        const order = await Order_model.findById(orderId);
+        res.status(200).json({ order });
+        console.log(order);
+    } catch (error) {
+        console.error('Error fetching order:', error);
+        res.status(500).json({ error: 'Failed to fetch order' });
+    }
+});
+
+app.get("/vieworder_uniforms/:uniformId", async (req, res) => {
+    const { uniformId } = req.params;
+    try {
+        const product = await Uniform_model.findById(uniformId);
+        if (!product) {
+            return res.status(404).json({ error: 'Uniform not found' });
+        }
+        res.status(200).json({ product });
+        console.log(product);
+    } catch (error) {
+        console.error('Error fetching product:', error);
+        res.status(500).json({ error: 'Failed to fetch product' });
+    }
+});
+
+
+app.get("/vieworder_books/:bookId", async (req, res) => {
+    const { bookId } = req.params;
+    try {
+        const product = await Book_model.findById(bookId);
+        if (!product) {
+            return res.status(404).json({ error: 'Book not found' });
+        }
+        res.status(200).json({ product });
+        console.log(product);
+    } catch (error) {
+        console.error('Error fetching product:', error);
+        res.status(500).json({ error: 'Failed to fetch product' });
+    }
+});
+
 
 
 
@@ -344,28 +388,64 @@ app.delete('/admin/uniformPage/:_id', async (req, res) => {
 //Uniform Order
 app.post("/auth/orderuniform", async (req, res) => {
     try {
-        console.log(req.body);
         const { orderPrice, OrderedproductId,size, address, customer,customerId} = req.body;
+        const producttype = 'uniform'
         console.log("Backend request Log",orderPrice, OrderedproductId, address, customer);
         // Validate incoming data
-        if (!customer ) {
-            return res.status(400).json({ error: 'Missing customer field' });
+        if (!customer || !OrderedproductId || !orderPrice || !address) {
+            return res.status(400).json({ error: 'Missing required field' });
         }
-        if ( !OrderedproductId  ) {
-            return res.status(400).json({ error: 'Missing OrderedProductId field' });
-        }
-        if (!orderPrice ) {
-            return res.status(400).json({ error: 'Missing OrderPrice field' });
-        }
-        if ( !address ) {
-            return res.status(400).json({ error: 'Missing address field' });
+
+
+        // Create a new Order entry
+        const newOrder = new Order_model({
+            producttype,
+            orderPrice,
+            OrderedproductId,
+            size,
+            address,
+            customer,
+            customerId
+        });
+
+        // Save the new Order entry
+        const savedOrder = await newOrder.save();
+
+        // Find the user by ID
+        const user = await User_model.findById(customerId);
+
+        // Push the newly created order ID into the orders array of the user
+        user.orders.push(savedOrder._id);
+
+        // Save the updated user document
+        await user.save();
+
+        res.status(201).json({ message: 'Order created successfully', order: savedOrder, orderId: savedOrder._id });
+
+
+        
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to create order' });
+    }
+});
+
+
+app.post("/auth/orderbook", async (req, res) => {
+    try {
+        const { orderPrice, OrderedproductId, address, customer,customerId} = req.body;
+        const producttype = 'book'
+        console.log("Backend request Log", orderPrice, OrderedproductId, address, customer);
+        // Validate incoming data
+        if (!customer || !OrderedproductId || !orderPrice || !address) {
+            return res.status(400).json({ error: 'Missing required field' });
         }
 
         // Create a new Order entry
         const newOrder = new Order_model({
+            producttype,
             orderPrice,
             OrderedproductId,
-            size,
             address,
             customer,
             customerId
