@@ -38,10 +38,35 @@ function OnBookopen({ product }) {
                 alert('Error in request setup: ', error.message);
             }
         }
-
-
     }
 
+
+    async function addToCart() {
+        if (!user) {
+            return alert('Please log in first ');
+        }
+    
+        try {
+            const response = await axios.post("http://localhost:8000/auth/addtocartbook", {
+                productId: product._id,
+                userId: userId
+                
+            });
+    
+            console.log('response', response);
+            alert('Item added to cart successfully');
+        } catch (error) {
+            if (error.response) {
+                alert(error.response.data.error);
+            } else if (error.request) {
+                alert('No response received from server');
+            } else {
+                alert('Error in request setup: ' + error.message);
+            }
+        }
+    }
+    
+    
     return (
         <>
             <div id='parentofmaincontainer'>
@@ -49,7 +74,7 @@ function OnBookopen({ product }) {
                     <div id='leftside'>
                         <img className='image' src={transformImagePath(product.image)} alt="" />
                         <div className='buttons'>
-                            <button className='addtocartbutton'>Add to Cart</button>
+                            <button onClick={addToCart} className='addtocartbutton'>Add to Cart</button>
                             <button onClick={(e)=>setShowOrderOverlay(true)} className='orderbutton'>Order</button>
                         </div>
                     </div>
@@ -57,7 +82,7 @@ function OnBookopen({ product }) {
                         <h1 className='text-black'><b>{product.title}</b></h1><br />
                         <h6>Author : {product.author}</h6><br />
                         <h6>Price : ₹{product.price}</h6><br />
-                        <h6 className='description'>Seller Phone Numeber : {product.phoneNumber}</h6><br /><br />
+                        <h6 className='description'>Seller Phone Number : {product.phoneNumber}</h6><br /><br />
                         <p>{product.description}</p><br />
                     </div>
                 </div>

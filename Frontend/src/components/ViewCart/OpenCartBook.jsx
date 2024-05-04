@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './OnUniformopen.css';
+import './OpenCartBook.css';
 import { transformImagePath } from '../../utils';
 import { useUser } from '../../contexts/UserContext';
 
-function OnUniformopen({ product }) {
+function OpenCartBook({ product, setSelectedProduct }) {
     const [size, setSize] = useState('');
     const [address, setAddress] = useState('')
     const [showOrderOverlay, setShowOrderOverlay] = useState(false);
     const { userId, setUserId, user, setUser, email, setEmail, phoneNumber, setPhoneNumber, cart, setCart } = useUser()
-    let productdata = [product]
-    console.log("after",productdata);
+
     async function orderitem(e) {
         e.preventDefault();
         if (!user) return alert('loggin first')
@@ -19,9 +18,8 @@ function OnUniformopen({ product }) {
             alert('Missing fields');
             return;
         }
-        console.log("Frontend request Log", product.price, product._id, size, address, user, userId);
         try {
-            const response = await axios.post("http://localhost:8000/auth/orderuniform", {
+            const response = await axios.post("http://localhost:8000/auth/orderbook", {
                 orderPrice: product.price,
                 OrderedproductId: product._id,
                 size: size,
@@ -44,20 +42,21 @@ function OnUniformopen({ product }) {
     }
 
 
-    async function addToCart() {
+    async function removeFromCart() {
+        console.log('ye function run hogaya', product);
         if (!user) {
-            return alert('Please log in first ');
+            return alert('Please log in first');
         }
     
         try {
-            const response = await axios.post("http://localhost:8000/auth/addtocartuniform", {
+            const response = await axios.post("http://localhost:8000/auth/removebookfromcart", {
                 productId: product._id,
                 userId: userId
-                
             });
-            
+    
             console.log('response', response);
-            alert('Item added to cart successfully');
+            alert('Item removed from cart successfully');
+            setSelectedProduct(null)
         } catch (error) {
             if (error.response) {
                 alert(error.response.data.error);
@@ -68,7 +67,7 @@ function OnUniformopen({ product }) {
             }
         }
     }
-
+    
     return (
         <>
             <div className='parent-container'>
@@ -76,7 +75,7 @@ function OnUniformopen({ product }) {
                     <div className='left-side'>
                         <img className='image' src={transformImagePath(product.image)} alt="" />
                         <div className='buttons'>
-                            <button onClick={addToCart} className='add-to-cart-button'>Add to Cart</button>
+                            <button onClick={removeFromCart} className='add-to-cart-button'>Remove from Cart</button>
                             <button onClick={() => setShowOrderOverlay(true)} className='order-button'>Order</button>
                         </div>
                     </div>
@@ -134,4 +133,4 @@ function OnUniformopen({ product }) {
     );
 }
 
-export default OnUniformopen;
+export default OpenCartBook;

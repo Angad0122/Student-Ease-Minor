@@ -70,7 +70,7 @@ app.post("/auth/login", async (req, res) => {
     }
     
     // If email and password match, consider it a successful login
-    res.status(200).json({ message: 'Login successful', username: user.username,email:user.email,phoneNumber:user.phonenumber,userId:user._id, orders:user.orders });
+    res.status(200).json({ message: 'Login successful', username: user.username,email:user.email,phoneNumber:user.phonenumber,userId:user._id, orders:user.orders, cart:user.cart });
 });
 
 
@@ -230,6 +230,37 @@ app.get("/vieworder_books/:bookId", async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch product' });
     }
 });
+
+
+app.get("/viewcart/:productId", async (req, res) => {
+    const { productId } = req.params;
+    try {
+        // Check if the product exists in the Uniform_model
+        let product = await Uniform_model.findById(productId);
+
+        // If the product is not found in the Uniform_model, check in the Book_model
+        if (!product) {
+            product = await Book_model.findById(productId);
+            if (!product) {
+                return res.status(404).json({ error: 'Product not found' });
+            } else {
+                // If found in Book_model, add producttype key with value 'book'
+                product = { ...product.toObject(), producttype: 'book' };
+            }
+        } else {
+            // If found in Uniform_model, add producttype key with value 'uniform'
+            product = { ...product.toObject(), producttype: 'uniform' };
+
+        }
+
+        // Return the product with producttype
+        res.status(200).json({ product });
+    } catch (error) {
+        console.error('Error fetching product:', error);
+        res.status(500).json({ error: 'Failed to fetch product' });
+    }
+});
+
 
 
 
@@ -472,6 +503,139 @@ app.post("/auth/orderbook", async (req, res) => {
         res.status(500).json({ error: 'Failed to create order' });
     }
 });
+
+
+//===========================================================
+//Add to Cart
+
+// Assuming you have routes defined using Express.js
+app.post("/auth/addtocartbook", async (req, res) => {
+    try {
+        // Extract productId and userId from the request body
+        const { productId, userId } = req.body;
+
+        // Validate incoming data
+        if (!productId || !userId) {
+            return res.status(400).json({ error: 'Missing required field' });
+        }
+
+        // Fetch the user from the database
+        const user = await User_model.findById(userId);
+
+        // Check if the productId already exists in the user's cart
+        if (user.cart.includes(productId)) {
+            return res.status(400).json({ error: 'Item is already in the cart' });
+        }
+
+        // Add the productId to the user's cart
+        user.cart.push(productId);
+
+        // Save the updated user document
+        await user.save();
+
+        // Return success response
+        res.status(200).json({ message: 'Item added to cart successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to add item to cart' });
+    }
+});
+
+app.post("/auth/addtocartuniform", async (req, res) => {
+    try {
+        // Extract productId and userId from the request body
+        const { productId, userId } = req.body;
+
+        // Validate incoming data
+        if (!productId || !userId) {
+            return res.status(400).json({ error: 'Missing required field' });
+        }
+
+        // Fetch the user from the database
+        const user = await User_model.findById(userId);
+
+        // Check if the productId already exists in the user's cart
+        if (user.cart.includes(productId)) {
+            return res.status(400).json({ error: 'Item is already in the cart' });
+        }
+
+        // Add the productId to the user's cart
+        user.cart.push(productId);
+
+        // Save the updated user document
+        await user.save();
+
+        // Return success response
+        res.status(200).json({ message: 'Item added to cart successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to add item to cart' });
+    }
+});
+
+
+app.post("/auth/removeuniformfromcart", async (req, res) => {
+    const { productId, userId } = req.body;
+    try {
+        // Validate incoming data
+        if (!productId || !userId) {
+            return res.status(400).json({ error: 'Missing required field' });
+        }
+
+        // Find the user by userId
+        const user = await User_model.findById(userId);
+
+        // Check if the user exists
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Remove the productId from the user's cart array
+        user.cart = user.cart.filter(cartItem => cartItem.toString() !== productId.toString());
+
+        // Save the updated user document
+        await user.save();
+
+        // Return success response
+        res.status(200).json({ message: 'Item removed from cart successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to remove item from cart' });
+    }
+});
+app.post("/auth/removebookfromcart", async (req, res) => {
+    const { productId, userId } = req.body;
+    try {
+        // Validate incoming data
+        if (!productId || !userId) {
+            return res.status(400).json({ error: 'Missing required field' });
+        }
+
+        // Find the user by userId
+        const user = await User_model.findById(userId);
+
+        // Check if the user exists
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Remove the productId from the user's cart array
+        user.cart = user.cart.filter(cartItem => cartItem.toString() !== productId.toString());
+
+        // Save the updated user document
+        await user.save();
+
+        // Return success response
+        res.status(200).json({ message: 'Item removed from cart successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to remove item from cart' });
+    }
+});
+
+
+
+
 
 
 

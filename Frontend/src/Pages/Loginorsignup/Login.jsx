@@ -32,6 +32,8 @@ export default function Login() {
             setPhoneNumber(response.data.phoneNumber)
             setUserId(response.data.userId);
             setOrders(response.data.orders);
+            setCart(response.data.cart)
+            console.log('cart ',response.data.cart);
             closeLoginOverlay();
         } catch {
             console.log(e);

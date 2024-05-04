@@ -28,6 +28,9 @@ export default function Header() {
     function gotoOrders(){
         navigate('/vieworders')
     }
+    function gotoCart(){
+        navigate('/viewcart')
+    }
 
 
 
@@ -49,7 +52,7 @@ export default function Header() {
                             <>
                                 <div className="relative z-5" >
                                     <DropdownButton id="dropdown-basic-button" title={user}>
-                                        <Dropdown.Item >Cart</Dropdown.Item>
+                                        <Dropdown.Item onClick={gotoCart} >Cart</Dropdown.Item>
                                         <Dropdown.Item onClick={gotoOrders}>Orders</Dropdown.Item>
                                         <hr className="m-1" />
                                         <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>

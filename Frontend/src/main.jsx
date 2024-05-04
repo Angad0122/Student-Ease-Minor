@@ -10,14 +10,15 @@ import Error from './Pages/404/Error';
 import SellBooks from './Pages/SellBooks/SellBooks.jsx';
 import ViewProducts from './Pages/ViewProducts/ViewProducts.jsx';
 import Onproductopen from './components/Onproductopen/OnBookopen.jsx';
-
+import ViewOrders from './components/ViewOrders/ViewOrders.jsx';
+import ViewCart from './components/ViewCart/ViewCart.jsx';
 
 import { OverlayProvider } from './contexts/OverlayContext.jsx';
 import { UserProvider } from './contexts/UserContext.jsx';
 import { AuthProvider } from './contexts/AuthContext.jsx';
 import { ProductListProvider } from './contexts/ProductListContext.jsx';
 import { AdminProvider } from './contexts/AdminContext.jsx';
-import ViewOrders from './components/ViewOrders/ViewOrders.jsx';
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -37,6 +38,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                   <Route path="/viewproducts" element={<ViewProducts />} />
                   <Route path="/productopen" element={<Onproductopen />} />
                   <Route path="/vieworders" element={<ViewOrders />} />
+                  <Route path="/viewcart" element={<ViewCart />} />
                   <Route path="*" element={<Error />} />
                 </Routes>
               </BrowserRouter>
