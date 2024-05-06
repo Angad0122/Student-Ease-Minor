@@ -31,7 +31,7 @@ function ViewUniforms() {
         <>
             {selectedUniform ? (
                 <>
-                <OnUniformopen product={selectedUniform} />
+                <OnUniformopen product={selectedUniform} setselectedUniform={setSelectedUniform} />
                 </>
             ) : (
                 <>

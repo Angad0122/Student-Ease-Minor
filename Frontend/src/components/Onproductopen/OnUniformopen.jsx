@@ -1,16 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './OnUniformopen.css';
+import { IoArrowBack } from "react-icons/io5";
 import { transformImagePath } from '../../utils';
 import { useUser } from '../../contexts/UserContext';
 
-function OnUniformopen({ product }) {
+function OnUniformopen({ product, setselectedUniform }) {
     const [size, setSize] = useState('');
     const [address, setAddress] = useState('')
     const [showOrderOverlay, setShowOrderOverlay] = useState(false);
-    const { userId, setUserId, user, setUser, email, setEmail, phoneNumber, setPhoneNumber, cart, setCart } = useUser()
-    let productdata = [product]
-    console.log("after",productdata);
+    const { userId, setUserId, user, setUser, email, setEmail, phoneNumber, setPhoneNumber, orders, setOrders, cart, setCart } = useUser()
+
+    useEffect(() => {
+        //fetching back orders
+        async function fetchOrders() {
+            try {
+                console.log('This is log of userId: ', userId);
+                const response = await axios.get(`http://localhost:8000/auth/getorders`, { params: { userId: userId } });
+                setOrders(response.data.orders);
+            } catch (error) {
+                console.error('Error fetching orders:', error);
+            }
+        }
+        fetchOrders()
+    }, [orders,setOrders])
+
     async function orderitem(e) {
         e.preventDefault();
         if (!user) return alert('loggin first')
@@ -32,6 +46,8 @@ function OnUniformopen({ product }) {
             console.log("response log", response.data.order, response.data.orderId);
             setShowOrderOverlay(false)
             alert('Ordered Successful')
+            setselectedUniform(null)
+            
         } catch (error) {
             if (error.response) {
                 alert(error.response.data.error);
@@ -71,6 +87,7 @@ function OnUniformopen({ product }) {
 
     return (
         <>
+        <IoArrowBack onClick={(e)=>{setselectedUniform(null)}} className='backbutton'/>
             <div className='parent-container'>
                 <div className='main-container'>
                     <div className='left-side'>

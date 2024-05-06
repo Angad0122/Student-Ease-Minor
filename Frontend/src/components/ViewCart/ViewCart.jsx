@@ -37,10 +37,6 @@ function ViewCart() {
         fetchCartProducts();
     }, []);
 
-    useEffect(() => {
-        console.log('selectedProduct', selectedProduct);
-    }, [selectedProduct]);
-
     function openproduct(product) {
         setSelectedProduct(product);
     }

@@ -29,7 +29,7 @@ function ViewBooks() {
     return (
         <>
             {selectedBook ? (
-                <OnBookopen product={selectedBook} />
+                <OnBookopen product={selectedBook} setSelectedBook={setSelectedBook} />
             ) : (
                 books.length > 0 ? (
                     <div className='bg-black'>

@@ -1,14 +1,28 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import './OnBookopen.css'
+import { IoArrowBack } from "react-icons/io5";
 import { transformImagePath } from '../../utils'
 import { useUser } from '../../contexts/UserContext';
 
-function OnBookopen({ product }) {
+function OnBookopen({ product, setSelectedBook }) {
     const [address, setAddress] = useState('')
     const [showOrderOverlay, setShowOrderOverlay] = useState(false);
     const { userId, setUserId, user, setUser, email, setEmail, phoneNumber, setPhoneNumber, orders, setOrders } = useUser()
 
+    useEffect(() => {
+        //fetching back orders
+        async function fetchOrders() {
+            try {
+                console.log('This is log of userId: ', userId);
+                const response = await axios.get(`http://localhost:8000/auth/getorders`, { params: { userId: userId } });
+                setOrders(response.data.orders);
+            } catch (error) {
+                console.error('Error fetching orders:', error);
+            }
+        }
+        fetchOrders()
+    }, [setOrders])
     async function orderitem(e) {
         e.preventDefault();
         if (!user) return alert('loggin first')
@@ -17,7 +31,7 @@ function OnBookopen({ product }) {
             alert('Missing fields');
             return;
         }
-        console.log("Frontend request Log", product.price, product._id,address, user, userId);
+        console.log("Frontend request Log", product.price, product._id, address, user, userId);
         try {
             const response = await axios.post("http://localhost:8000/auth/orderbook", {
                 orderPrice: product.price,
@@ -26,9 +40,10 @@ function OnBookopen({ product }) {
                 customer: user,
                 customerId: userId
             });
-            console.log("response log",response.data.order,response.data.orderId);
+            console.log("response log", response.data.order, response.data.orderId);
             setShowOrderOverlay(false)
             alert('Ordered Successful')
+            setSelectedBook(null)
         } catch (error) {
             if (error.response) {
                 alert(error.response.data.error);
@@ -45,14 +60,14 @@ function OnBookopen({ product }) {
         if (!user) {
             return alert('Please log in first ');
         }
-    
+
         try {
             const response = await axios.post("http://localhost:8000/auth/addtocartbook", {
                 productId: product._id,
                 userId: userId
-                
+
             });
-    
+
             console.log('response', response);
             alert('Item added to cart successfully');
         } catch (error) {
@@ -65,17 +80,18 @@ function OnBookopen({ product }) {
             }
         }
     }
-    
-    
+
+
     return (
         <>
+            <IoArrowBack onClick={(e) => { setSelectedBook(null) }} className='backbutton' />
             <div id='parentofmaincontainer'>
                 <div id='maincontainer'>
                     <div id='leftside'>
                         <img className='image' src={transformImagePath(product.image)} alt="" />
                         <div className='buttons'>
                             <button onClick={addToCart} className='addtocartbutton'>Add to Cart</button>
-                            <button onClick={(e)=>setShowOrderOverlay(true)} className='orderbutton'>Order</button>
+                            <button onClick={(e) => setShowOrderOverlay(true)} className='orderbutton'>Order</button>
                         </div>
                     </div>
                     <div id='rightside'>

@@ -506,6 +506,59 @@ app.post("/auth/orderbook", async (req, res) => {
 
 
 //===========================================================
+//Cancel orders
+app.post("/auth/cancelorder", async (req, res) => {
+    const { orderId, userId } = req.body;
+    try {
+        // Find the user by userId
+        const user = await User_model.findById(userId);
+
+        // Check if the user exists
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Check if the order exists in the user's orders
+        const orderIndex = user.orders.findIndex(order => order.toString() === orderId.toString());
+        if (orderIndex === -1) {
+            return res.status(404).json({ error: 'Order not found' });
+        }
+
+        // Remove the order from the user's orders array
+        user.orders.splice(orderIndex, 1);
+
+        // Save the updated user document
+        await user.save();
+
+        // Return success response
+        res.status(200).json({ message: 'Order cancelled successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to cancel order' });
+    }
+});
+
+// ===========================================================
+// get orders 
+app.get('/auth/getorders', async (req, res) => {
+    const { userId } = req.query;
+
+    try {
+        const user = await User_model.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Assuming user.orders is an array containing orders
+        res.status(200).json({ orders: user.orders });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to fetch orders' });
+    }
+});
+
+//===========================================================
 //Add to Cart
 
 // Assuming you have routes defined using Express.js

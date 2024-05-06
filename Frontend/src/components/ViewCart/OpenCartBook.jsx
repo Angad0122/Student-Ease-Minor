@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './OpenCartBook.css';
+import { IoArrowBack } from "react-icons/io5";
 import { transformImagePath } from '../../utils';
 import { useUser } from '../../contexts/UserContext';
 
@@ -70,6 +71,7 @@ function OpenCartBook({ product, setSelectedProduct }) {
     
     return (
         <>
+            <IoArrowBack onClick={(e) => { setSelectedProduct(null) }} className='backbutton' />
             <div className='parent-container'>
                 <div className='main-container'>
                     <div className='left-side'>

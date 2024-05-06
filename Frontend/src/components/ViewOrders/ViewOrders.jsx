@@ -7,8 +7,8 @@ import { useUser } from '../../contexts/UserContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { transformImagePath } from '../../utils';
-import BookOrderOpen from '../ViewProductOrdered/BookOrderOpen';
-import UniformOrderOpen from '../ViewProductOrdered/UniformOrderOpen';
+import BookOrderOpen from './BookOrderOpen';
+import UniformOrderOpen from './UniformOrderOpen';
 
 function ViewOrders() {
     const navigate = useNavigate()
@@ -34,7 +34,6 @@ function ViewOrders() {
                         const uniformId = order.OrderedproductId;
                         const response = await axios.get(`http://localhost:8000/vieworder_uniforms/${uniformId}`);
                         product = response.data.product;
-                        console.log('product', product);
                     } else if (order.producttype === 'book') {
                         const bookId = order.OrderedproductId;
                         const response = await axios.get(`http://localhost:8000/vieworder_books/${bookId}`);
@@ -54,7 +53,7 @@ function ViewOrders() {
         }
 
         fetchAllOrders();
-    }, []);
+    }, [orders,setOrders]);
 
     function openproduct(product) {
         setSelectedProduct(product);
@@ -67,11 +66,11 @@ function ViewOrders() {
                 <>
                     {selectedProduct.producttype === 'uniform' ? (
                         <>
-                            <UniformOrderOpen product={selectedProduct.product} />
+                            <UniformOrderOpen product={selectedProduct} setSelectedProduct={setSelectedProduct} />
                         </>
                     ) : (
                         <>
-                            <BookOrderOpen product={selectedProduct.product} />
+                            <BookOrderOpen product={selectedProduct} setSelectedProduct={setSelectedProduct} />
                         </>
                     )}
                 </>
