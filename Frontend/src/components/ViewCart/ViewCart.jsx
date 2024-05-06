@@ -35,7 +35,7 @@ function ViewCart() {
         }
         
         fetchCartProducts();
-    }, []);
+    }, [cart,setCart]);
 
     function openproduct(product) {
         setSelectedProduct(product);
@@ -88,7 +88,7 @@ function ViewCart() {
                         <div className='suggessionheading'>
                         <p>! If you Ordered recently and can't see your order than try logging in again</p>
                         </div>
-                        <h1 className='noordersfound'>No Orders Found</h1>
+                        <h1 className='noordersfound'>No Products found in cart</h1>
                         </>
                     )}
                 </>

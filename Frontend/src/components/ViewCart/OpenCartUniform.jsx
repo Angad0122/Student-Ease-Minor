@@ -10,7 +10,7 @@ function OpenCartUniform({ product, setSelectedProduct }) {
     const [address, setAddress] = useState('')
     const [showOrderOverlay, setShowOrderOverlay] = useState(false);
     const { userId, setUserId, user, setUser, email, setEmail, phoneNumber, setPhoneNumber, cart, setCart } = useUser()
-
+ 
     async function orderitem(e) {
         e.preventDefault();
         if (!user) return alert('loggin first')
@@ -43,8 +43,8 @@ function OpenCartUniform({ product, setSelectedProduct }) {
     }
 
 
+    
     async function removeFromCart() {
-        console.log('ye function run hogaya', product);
         if (!user) {
             return alert('Please log in first');
         }
@@ -54,9 +54,16 @@ function OpenCartUniform({ product, setSelectedProduct }) {
                 productId: product._id,
                 userId: userId
             });
-    
-            console.log('response', response);
             alert('Item removed from cart successfully');
+
+            //fetching back cart
+            try {
+                const response = await axios.get(`http://localhost:8000/auth/getcart`, { params: { userId: userId } });
+                setCart(response.data.cart);
+            } catch (error) {
+                console.error('Error fetching orders:', error);
+            }
+            
             setSelectedProduct(null)
         } catch (error) {
             if (error.response) {

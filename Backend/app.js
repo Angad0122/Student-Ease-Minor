@@ -594,6 +594,7 @@ app.post("/auth/addtocartbook", async (req, res) => {
     }
 });
 
+
 app.post("/auth/addtocartuniform", async (req, res) => {
     try {
         // Extract productId and userId from the request body
@@ -687,6 +688,22 @@ app.post("/auth/removebookfromcart", async (req, res) => {
 });
 
 
+app.get('/auth/getcart', async (req, res) => {
+    const { userId } = req.query;
+
+    try {
+        const user = await User_model.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        // Assuming user.orders is an array containing cart
+        res.status(200).json({ cart: user.cart });
+        console.log(user.cart);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to fetch orders' });
+    }
+});
 
 
 

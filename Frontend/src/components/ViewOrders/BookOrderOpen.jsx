@@ -20,15 +20,11 @@ function BookOrderOpen({ product, setSelectedProduct }) {
 
             //fetching back orders
             try {
-                console.log('This is log of userId: ', userId);
                 const response = await axios.get(`http://localhost:8000/auth/getorders`, { params: { userId: userId } });
                 setOrders(response.data.orders);
             } catch (error) {
                 console.error('Error fetching orders:', error);
             }
-
-
-
 
             setSelectedProduct(null)
         } catch (error) {

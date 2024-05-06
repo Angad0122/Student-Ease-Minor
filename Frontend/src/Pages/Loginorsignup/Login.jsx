@@ -25,7 +25,6 @@ export default function Login() {
 
         try {
             const response = await axios.post("http://localhost:8000/auth/login", { email, password });
-            console.log(response.data);
             setIsLoggedIn(true);
             setUser(response.data.username);
             setEmail(response.data.email)
@@ -33,7 +32,6 @@ export default function Login() {
             setUserId(response.data.userId);
             setOrders(response.data.orders);
             setCart(response.data.cart)
-            console.log('cart ',response.data.cart);
             closeLoginOverlay();
         } catch {
             console.log(e);

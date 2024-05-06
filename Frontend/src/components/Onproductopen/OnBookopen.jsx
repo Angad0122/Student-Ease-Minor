@@ -8,13 +8,12 @@ import { useUser } from '../../contexts/UserContext';
 function OnBookopen({ product, setSelectedBook }) {
     const [address, setAddress] = useState('')
     const [showOrderOverlay, setShowOrderOverlay] = useState(false);
-    const { userId, setUserId, user, setUser, email, setEmail, phoneNumber, setPhoneNumber, orders, setOrders } = useUser()
+    const { userId, setUserId, user, setUser, email, setEmail, phoneNumber, setPhoneNumber, orders, setOrders, cart, setCart } = useUser()
 
     useEffect(() => {
         //fetching back orders
         async function fetchOrders() {
             try {
-                console.log('This is log of userId: ', userId);
                 const response = await axios.get(`http://localhost:8000/auth/getorders`, { params: { userId: userId } });
                 setOrders(response.data.orders);
             } catch (error) {
@@ -23,6 +22,55 @@ function OnBookopen({ product, setSelectedBook }) {
         }
         fetchOrders()
     }, [setOrders])
+
+    useEffect(() => {
+        //fetching back orders
+        async function fetchCart() {
+            try {
+                const response = await axios.get(`http://localhost:8000/auth/getcart`, { params: { userId: userId } });
+                setCart(response.data.cart);
+            } catch (error) {
+                console.error('Error fetching orders:', error);
+            }
+        }
+        fetchCart()
+    }, [setCart])
+
+
+
+    async function addToCart() {
+        if (!user) {
+            return alert('Please log in first ');
+        }
+
+        try {
+            const response = await axios.post("http://localhost:8000/auth/addtocartbook", {
+                productId: product._id,
+                userId: userId
+
+            });
+
+            alert('Item added to cart successfully');
+
+            //fetching back cart
+            try {
+                const response = await axios.get(`http://localhost:8000/auth/getcart`, { params: { userId: userId } });
+                setCart(response.data.cart);
+            } catch (error) {
+                console.error('Error fetching orders:', error);
+            }
+        } catch (error) {
+            if (error.response) {
+                alert(error.response.data.error);
+            } else if (error.request) {
+                alert('No response received from server');
+            } else {
+                alert('Error in request setup: ' + error.message);
+            }
+        }
+    }
+
+
     async function orderitem(e) {
         e.preventDefault();
         if (!user) return alert('loggin first')
@@ -56,30 +104,6 @@ function OnBookopen({ product, setSelectedBook }) {
     }
 
 
-    async function addToCart() {
-        if (!user) {
-            return alert('Please log in first ');
-        }
-
-        try {
-            const response = await axios.post("http://localhost:8000/auth/addtocartbook", {
-                productId: product._id,
-                userId: userId
-
-            });
-
-            console.log('response', response);
-            alert('Item added to cart successfully');
-        } catch (error) {
-            if (error.response) {
-                alert(error.response.data.error);
-            } else if (error.request) {
-                alert('No response received from server');
-            } else {
-                alert('Error in request setup: ' + error.message);
-            }
-        }
-    }
 
 
     return (

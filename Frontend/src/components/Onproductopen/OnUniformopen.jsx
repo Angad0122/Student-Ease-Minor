@@ -15,7 +15,6 @@ function OnUniformopen({ product, setselectedUniform }) {
         //fetching back orders
         async function fetchOrders() {
             try {
-                console.log('This is log of userId: ', userId);
                 const response = await axios.get(`http://localhost:8000/auth/getorders`, { params: { userId: userId } });
                 setOrders(response.data.orders);
             } catch (error) {
@@ -23,7 +22,54 @@ function OnUniformopen({ product, setselectedUniform }) {
             }
         }
         fetchOrders()
-    }, [orders,setOrders])
+    }, [setOrders])
+
+    useEffect(() => {
+        //fetching back orders
+        async function fetchCart() {
+            try {
+                const response = await axios.get(`http://localhost:8000/auth/getcart`, { params: { userId: userId } });
+                setCart(response.data.cart);
+            } catch (error) {
+                console.error('Error fetching orders:', error);
+            }
+        }
+        fetchCart()
+    }, [setCart])
+
+
+    
+    async function addToCart() {
+        if (!user) {
+            return alert('Please log in first ');
+        }
+    
+        try {
+            const response = await axios.post("http://localhost:8000/auth/addtocartuniform", {
+                productId: product._id,
+                userId: userId
+                
+            });
+            alert('Item added to cart successfully');
+
+            //fetching back cart
+            try {
+                const response = await axios.get(`http://localhost:8000/auth/getcart`, { params: { userId: userId } });
+                setCart(response.data.cart);
+            } catch (error) {
+                console.error('Error fetching orders:', error);
+            }
+            
+        } catch (error) {
+            if (error.response) {
+                alert(error.response.data.error);
+            } else if (error.request) {
+                alert('No response received from server');
+            } else {
+                alert('Error in request setup: ' + error.message);
+            }
+        }
+    }
 
     async function orderitem(e) {
         e.preventDefault();
@@ -60,30 +106,6 @@ function OnUniformopen({ product, setselectedUniform }) {
     }
 
 
-    async function addToCart() {
-        if (!user) {
-            return alert('Please log in first ');
-        }
-    
-        try {
-            const response = await axios.post("http://localhost:8000/auth/addtocartuniform", {
-                productId: product._id,
-                userId: userId
-                
-            });
-            
-            console.log('response', response);
-            alert('Item added to cart successfully');
-        } catch (error) {
-            if (error.response) {
-                alert(error.response.data.error);
-            } else if (error.request) {
-                alert('No response received from server');
-            } else {
-                alert('Error in request setup: ' + error.message);
-            }
-        }
-    }
 
     return (
         <>

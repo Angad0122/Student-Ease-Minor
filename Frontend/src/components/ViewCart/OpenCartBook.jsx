@@ -43,8 +43,8 @@ function OpenCartBook({ product, setSelectedProduct }) {
     }
 
 
+    
     async function removeFromCart() {
-        console.log('ye function run hogaya', product);
         if (!user) {
             return alert('Please log in first');
         }
@@ -55,8 +55,17 @@ function OpenCartBook({ product, setSelectedProduct }) {
                 userId: userId
             });
     
-            console.log('response', response);
             alert('Item removed from cart successfully');
+
+            //fetching back orders
+            try {
+                const response = await axios.get(`http://localhost:8000/auth/getcart`, { params: { userId: userId } });
+                setCart(response.data.cart);
+                console.log("cart bhi set hogaya ",cart);
+            } catch (error) {
+                console.error('Error fetching orders:', error);
+            }
+
             setSelectedProduct(null)
         } catch (error) {
             if (error.response) {
