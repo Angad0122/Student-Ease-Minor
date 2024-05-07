@@ -401,12 +401,18 @@ app.delete('/admin/uniformPage/:_id', async (req, res) => {
     }
 });
 
+//============================================================================
+//Order Control
 
-
-
-
-
-
+app.get("/admin/orderPage", async (req, res) => {
+    try {
+        const orders = await Order_model.find(); // Fetch all users from the database
+        res.status(200).json({ orders });
+    } catch (error) {
+        console.error('Error fetching orders:', error);
+        res.status(500).json({ error: 'Failed to fetch orders' });
+    }
+});
 
 
 
@@ -529,6 +535,9 @@ app.post("/auth/cancelorder", async (req, res) => {
 
         // Save the updated user document
         await user.save();
+
+        // Find the order by orderId
+        const order = await Order_model.findByIdAndDelete(orderId);
 
         // Return success response
         res.status(200).json({ message: 'Order cancelled successfully' });

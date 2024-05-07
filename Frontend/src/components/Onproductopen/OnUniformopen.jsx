@@ -22,7 +22,7 @@ function OnUniformopen({ product, setselectedUniform }) {
             }
         }
         fetchOrders()
-    }, [setOrders])
+    }, [orders,setOrders])
 
     useEffect(() => {
         //fetching back orders
@@ -89,7 +89,6 @@ function OnUniformopen({ product, setselectedUniform }) {
                 customer: user,
                 customerId: userId
             });
-            console.log("response log", response.data.order, response.data.orderId);
             setShowOrderOverlay(false)
             alert('Ordered Successful')
             setselectedUniform(null)

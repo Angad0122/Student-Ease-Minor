@@ -21,7 +21,7 @@ function OnBookopen({ product, setSelectedBook }) {
             }
         }
         fetchOrders()
-    }, [setOrders])
+    }, [orders,setOrders])
 
     useEffect(() => {
         //fetching back orders
@@ -88,7 +88,6 @@ function OnBookopen({ product, setSelectedBook }) {
                 customer: user,
                 customerId: userId
             });
-            console.log("response log", response.data.order, response.data.orderId);
             setShowOrderOverlay(false)
             alert('Ordered Successful')
             setSelectedBook(null)
