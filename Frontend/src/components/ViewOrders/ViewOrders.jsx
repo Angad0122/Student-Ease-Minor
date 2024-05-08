@@ -93,8 +93,9 @@ function ViewOrders() {
                                             />
                                         </div>
                                         <h3 className="mt-4 text-sm text-gray-700">{product.organization}</h3>
-                                        <h3 className="mt-1 text-sm text-gray-700">{product.producttype}</h3>
-                                        <p className="mt-1 text-lg font-medium text-gray-900">{product.price}</p>
+                                        <h3 className="mt-1 text-sm text-gray-700">{product.product.type}</h3>
+                                        <h3 className="mt-1 text-sm text-gray-700">{product.product.title}</h3>
+                                        <p className="mt-1 text-lg font-medium text-gray-900">{product.product.price}</p>
                                     </button>
                                 ))}
                             </div>
